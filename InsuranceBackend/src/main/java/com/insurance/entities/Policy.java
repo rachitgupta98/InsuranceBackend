@@ -1,6 +1,7 @@
 package com.insurance.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -35,7 +37,6 @@ public class Policy {
 	Date policyEndDate;
 	boolean isExpired;
 	int insuranceAmount;
-	boolean claimStatus;
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
@@ -45,9 +46,8 @@ public class Policy {
 	@JoinColumn(name = "vehicleId")
 	Vehicle vehicle;
 
-	@OneToOne
-	@JoinColumn(name = "claimId")
-	Claim claim;
+	@OneToMany(mappedBy = "policy",cascade = CascadeType.ALL)
+	List<Claim> claims;
 
 	@OneToOne(mappedBy = "policy", cascade = CascadeType.ALL)
 	Payment payment;
@@ -124,14 +124,6 @@ public class Policy {
 		this.insuranceAmount = insuranceAmount;
 	}
 
-	public boolean isClaimStatus() {
-		return claimStatus;
-	}
-
-	public void setClaimStatus(boolean claimStatus) {
-		this.claimStatus = claimStatus;
-	}
-
 	public User getUser() {
 		return user;
 	}
@@ -148,12 +140,14 @@ public class Policy {
 		this.vehicle = vehicle;
 	}
 
-	public Claim getClaim() {
-		return claim;
+
+
+	public List<Claim> getClaims() {
+		return claims;
 	}
 
-	public void setClaim(Claim claim) {
-		this.claim = claim;
+	public void setClaims(List<Claim> claims) {
+		this.claims = claims;
 	}
 
 	public Payment getPayment() {

@@ -2,6 +2,11 @@ package com.insurance.repository;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 import com.insurance.apiResponse.ApiResponse;
@@ -9,17 +14,22 @@ import com.insurance.entities.User;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
-
-	@Override
+	@PersistenceContext
+	EntityManager em;
+	
+	@Transactional
 	public long signUpUser(User user) {
 		// TODO Auto-generated method stub
-		return 0;
+		User newUser=em.merge(user);
+		return newUser.getUserId();
 	}
 
-	@Override
+	@Transactional
 	public List<User> viewAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		String jpql="select u from User u";
+		Query query=em.createQuery(jpql);
+		List<User> users=query.getResultList();
+		return users;
 	}
 
 	@Override

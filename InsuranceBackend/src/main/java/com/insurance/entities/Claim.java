@@ -29,7 +29,8 @@ public class Claim {
 	@JoinColumn(name = "userId")
 	User user;
 
-	@OneToOne(mappedBy = "claim", cascade = CascadeType.ALL)
+	@ManyToOne
+	@JoinColumn(name="policyId")
 	Policy policy;
 
 	@ManyToOne

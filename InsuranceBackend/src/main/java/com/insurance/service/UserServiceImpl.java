@@ -23,6 +23,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApiResponse findUserById(long userId) {
 		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
