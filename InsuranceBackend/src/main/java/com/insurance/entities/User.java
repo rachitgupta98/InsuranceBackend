@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_userData")
 public class User {
@@ -23,6 +25,8 @@ public class User {
 	long userId;
 	String userName;
 	String userEmail;
+	
+	@JsonIgnore
 	String userPassword;
 	
 	@Column(unique = true,nullable = false)
