@@ -51,7 +51,9 @@ public class UserRepositoryImpl implements UserRepository {
 		String jpql="select e from User e where e.userEmail=:email";
 		Query query = em.createQuery(jpql);
 		query.setParameter("email", email);
-		return (User) query.getSingleResult();
+		User user=(User) query.getSingleResult();
+		System.out.println("user logged in");
+		return user;
 	}
 
 }

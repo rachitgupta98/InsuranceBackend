@@ -33,7 +33,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
     public ApiResponse login(LoginDto loginDto) {
-        User user = userRepository.findByEmail(loginDto.getUserName());
+        User user = userRepository.findByEmail(loginDto.getUserEmail());
           if(user.getUserPassword().equals(loginDto.getUserPassword())) {
         	  return new ApiResponse(200, "SUCCESS", user) ;
           }
