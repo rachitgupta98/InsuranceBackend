@@ -1,5 +1,6 @@
 package com.insurance.service;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.insurance.apiResponse.ApiResponse;
@@ -9,4 +10,5 @@ public interface VehicleService {
 	public ApiResponse addOrUpdateVehicle(Vehicle vehicle);
 	public ApiResponse viewAllvehicles();
 	public ApiResponse findVehicleById(String registrationNumber);
+	public ApiResponse scrapeVehicleInfo(String registrationNumber) throws IOException;
 }
