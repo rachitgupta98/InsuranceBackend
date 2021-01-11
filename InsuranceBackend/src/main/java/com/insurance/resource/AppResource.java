@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.LoginDto;
 import com.insurance.service.VehicleService;
 
 import com.insurance.entities.User;
@@ -38,5 +39,14 @@ public class AppResource {
 		return apiResponse;
 	}
 	
-	
+	@RequestMapping(value="/login",method=RequestMethod.POST)
+    public ApiResponse login(@RequestBody LoginDto loginDto){
+	 
+        return userService.login(loginDto);
+ } 
+
+
 }
+	
+	
+

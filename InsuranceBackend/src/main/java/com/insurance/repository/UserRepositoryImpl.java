@@ -46,4 +46,12 @@ public class UserRepositoryImpl implements UserRepository {
 		return user;
 	}
 
+	@Override
+	public User findByEmail(String email) {
+		String jpql="select e from User e where e.userEmail=:email";
+		Query query = em.createQuery(jpql);
+		query.setParameter("email", email);
+		return (User) query.getSingleResult();
+	}
+
 }

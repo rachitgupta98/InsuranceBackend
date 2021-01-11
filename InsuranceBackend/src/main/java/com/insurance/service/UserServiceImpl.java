@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.LoginDto;
 import com.insurance.entities.User;
 import com.insurance.repository.UserRepository;
 
@@ -28,6 +29,19 @@ public class UserServiceImpl implements UserService {
 		}
 
 	}
+
+
+	@Override
+    public ApiResponse login(LoginDto loginDto) {
+        User user = userRepository.findByEmail(loginDto.getUserName());
+          if(user.getUserPassword().equals(loginDto.getUserPassword())) {
+        	  return new ApiResponse(200, "SUCCESS", user) ;
+          }
+        
+          return new ApiResponse(400, "FAILED", null) ;
+        
+     
+    }
 
 	@Override
 	public ApiResponse viewAllUsers() {
