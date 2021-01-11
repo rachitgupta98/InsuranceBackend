@@ -24,8 +24,13 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public ApiResponse addOrUpdateVehicle(Vehicle vehicle) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		long vehicleId = vehicleRepository.addOrUpdateVehicle(vehicle);
+		if(vehicleId > 0) {
+			return new ApiResponse(200, "Vehicle Data is registered successfully", null);
+
+		}
+		return new ApiResponse(400, "Vehicle registration failed", null);
 	}
 
 	@Override
