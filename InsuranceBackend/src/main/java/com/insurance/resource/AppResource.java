@@ -18,35 +18,31 @@ import com.insurance.service.VehicleService;
 import com.insurance.entities.User;
 import com.insurance.service.UserService;
 
-@CrossOrigin (origins = "http://localhost:4200", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class AppResource {
-	
+
 	@Autowired
 	VehicleService vehicleService;
-	
-	@GetMapping(value="/insurance/scrape/vehicleInfo")
+
+	@GetMapping(value = "/insurance/scrape/vehicleInfo")
 	public ApiResponse vehicleInfo(@RequestParam String registrationNumber) throws IOException {
 		return vehicleService.scrapeVehicleInfo(registrationNumber);
 	}
-	
+
 	@Autowired
 	UserService userService;
-	
-	@RequestMapping(value="/addorUpdateUser",method=RequestMethod.POST)
-	public  ApiResponse addAUser(@RequestBody User user){
+
+	@RequestMapping(value = "/addorUpdateUser", method = RequestMethod.POST)
+	public ApiResponse addAUser(@RequestBody User user) {
 		ApiResponse apiResponse = userService.signUpUser(user);
 		return apiResponse;
 	}
-	
-	@RequestMapping(value="/login",method=RequestMethod.POST)
-    public ApiResponse login(@RequestBody LoginDto loginDto){
-	 
-        return userService.login(loginDto);
- } 
 
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ApiResponse login(@RequestBody LoginDto loginDto) {
+
+		return userService.login(loginDto);
+	}
 
 }
-	
-	
-
