@@ -26,7 +26,7 @@ public class User {
 	String userName;
 	String userEmail;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	String userPassword;
 	
 	@Column(unique = true,nullable = false)
