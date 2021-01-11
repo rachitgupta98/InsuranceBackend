@@ -19,6 +19,8 @@ import javax.persistence.Table;
 import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.NaturalId;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "tbl_policyData")
 public class Policy {
@@ -30,10 +32,14 @@ public class Policy {
 	
 	@Column(unique = true,nullable = false)
 	long policyNumber;
+	
 	String planType;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	Date purchaseDate;
 	double premiumAmount;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	Date policyStartDate;
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	Date policyEndDate;
 	boolean isExpired;
 	int insuranceAmount;

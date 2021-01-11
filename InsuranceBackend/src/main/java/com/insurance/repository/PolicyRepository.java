@@ -9,4 +9,5 @@ public interface PolicyRepository {
 	public long buyPolicy(Policy policy);
 	public long claimPolicy(long policyNumber);
 	public long renewPolicy(RenewDto renew);
+	public Policy findPolicyByPolicyNumber(long policyNumber);
 }

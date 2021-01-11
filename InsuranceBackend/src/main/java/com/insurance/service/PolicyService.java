@@ -9,4 +9,5 @@ public interface PolicyService {
 	public ApiResponse buyPolicy(Policy policy);
 	public ApiResponse claimPolicy(long policyNumber);
 	public ApiResponse renewPolicy(RenewDto renew);
+	public ApiResponse findPolicyByPolicyNumber(long policyNo);
 }
