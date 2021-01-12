@@ -1,3 +1,4 @@
+
 package com.insurance.service;
 
 import com.insurance.apiResponse.ApiResponse;
@@ -11,5 +12,5 @@ public interface PolicyService {
 	public ApiResponse buyPolicy(Policy policy);
 	public ApiResponse claimPolicy(ClaimDto claimDto);
 	public ApiResponse renewPolicy(RenewDto renew);
-	public Policy findPolicyByPolicyNumber(long policyNumber);
+	public ApiResponse findPolicyByPolicyNumber(long policyNo);
 }

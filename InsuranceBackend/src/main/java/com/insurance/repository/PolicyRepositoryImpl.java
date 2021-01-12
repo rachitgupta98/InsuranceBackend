@@ -1,3 +1,4 @@
+
 package com.insurance.repository;
 
 import javax.persistence.EntityManager;
@@ -32,23 +33,17 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		Claim newClaim=em.merge(claim);
 		return newClaim;
 	}
-	@Transactional
+	@Override
 	public Policy findPolicyByPolicyNumber(long policyNumber) {
-		/*
-		 * System.out.println("finding policy"+policyNumber); String
-		 * jpql="select p from Policy p where p.policyNumber=policyNumber";
-		 * 
-		 * TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
-		 * 
-		 * return query.getSingleResult();
-		 */
-		String jpql="select e from Policy e where e.policyNumber=:email";
-		Query query = em.createQuery(jpql);
-		query.setParameter("email", policyNumber);
-		Policy policy=(Policy) query.getSingleResult();
-		System.out.println("user logged in");
-		return policy;
+		// TODO Auto-generated method stub
+		try {
+		String jpql = "select p from Policy p where p.policyNumber=policyNumber";
+		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
 		
+		return (Policy)query.getSingleResult();
+		}catch(NoResultException nre){
+			return null;
+		}
 		
 	}
 	@Transactional
@@ -58,3 +53,4 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	}
 
 }
+

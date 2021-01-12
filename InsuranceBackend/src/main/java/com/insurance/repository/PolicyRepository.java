@@ -1,3 +1,4 @@
+
 package com.insurance.repository;
 
 import com.insurance.apiResponse.ApiResponse;
@@ -12,3 +13,4 @@ public interface PolicyRepository {
 	public long renewPolicy(RenewDto renew);
 	public Policy findPolicyByPolicyNumber(long policyNumber);
 }
+

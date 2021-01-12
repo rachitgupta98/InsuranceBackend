@@ -1,4 +1,5 @@
 
+
 package com.insurance.resource;
 
 import java.io.IOException;
@@ -8,6 +9,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,6 +22,7 @@ import com.insurance.dto.LoginDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
+import com.insurance.entities.Vehicle;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
 import com.insurance.service.VehicleService;
@@ -54,8 +57,27 @@ public class AppResource {
 
 		return userService.login(loginDto);
 	}
-	@RequestMapping(value="/findPolicyBynumber",method=RequestMethod.GET)
-	public Policy findPolicy(@RequestParam long policyNumber) {
+
+	/*
+	 * @RequestMapping(value="/findPolicyBynumber",method=RequestMethod.GET) public
+	 * Policy findPolicy(@RequestParam long policyNumber) { return
+	 * policyService.findPolicyByPolicyNumber(policyNumber); }
+	 */
+	@RequestMapping(value = "/insurance/addOrUpdateVehicle", method = RequestMethod.POST)
+	public ApiResponse addOrUpdateVehicleDetails(@RequestBody Vehicle vehicle) {
+
+		return vehicleService.addOrUpdateVehicle(vehicle);
+	}
+	
+	@PostMapping(value = "/insurance/buyPolicy")
+	public ApiResponse buyPolicy(@RequestBody Policy policy) {
+
+		return policyService.buyPolicy(policy);
+	}
+	
+	@GetMapping(value = "/insurance/findPolicy")
+	public ApiResponse buyPolicy(@RequestParam long policyNumber) {
+
 		return policyService.findPolicyByPolicyNumber(policyNumber);
 	}
 	
@@ -67,6 +89,7 @@ public class AppResource {
 	}
 	
 }
+
 
 
 
