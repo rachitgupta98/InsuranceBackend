@@ -96,4 +96,13 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
 	}
 
+	@Override
+	@Transactional
+	public Vehicle findVehicleByVehicleId(long vehicleId) {
+		// TODO Auto-generated method stub
+		return em.find(Vehicle.class, vehicleId);
+	}
+
+	
+
 }

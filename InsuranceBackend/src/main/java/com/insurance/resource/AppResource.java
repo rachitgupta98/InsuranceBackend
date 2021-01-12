@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.PolicyDto;
 import com.insurance.service.VehicleService;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
@@ -58,7 +59,7 @@ public class AppResource {
 	}
 	
 	@PostMapping(value = "/insurance/buyPolicy")
-	public ApiResponse buyPolicy(@RequestBody Policy policy) {
+	public ApiResponse buyPolicy(@RequestBody PolicyDto policy) {
 
 		return policyService.buyPolicy(policy);
 	}

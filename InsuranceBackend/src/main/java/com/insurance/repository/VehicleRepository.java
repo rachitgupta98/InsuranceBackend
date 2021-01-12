@@ -13,4 +13,5 @@ public interface VehicleRepository {
 	public List<Vehicle> viewAllvehicles();
 	public Vehicle findVehicleById(String registrationNumber);
 	public Map<String, String> scrapeData(VehicleDto vm) throws IOException;
+	public Vehicle findVehicleByVehicleId(long vehicleId);
 }
