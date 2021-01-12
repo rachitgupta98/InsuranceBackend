@@ -11,5 +11,6 @@ public interface UserRepository {
 	public List<User> viewAllUsers();
 	public User findUserById(long userId);
 	public User deleteUser(long userId);
-//	public ApiResponse loginUser()
+    public User findByEmail(String email);
+
 }

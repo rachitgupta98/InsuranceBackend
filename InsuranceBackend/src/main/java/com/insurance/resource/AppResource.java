@@ -1,20 +1,28 @@
+
 package com.insurance.resource;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDto;
+import com.insurance.dto.LoginDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
+import com.insurance.service.VehicleService;
 
 @CrossOrigin (origins = "http://localhost:4200", maxAge = 3600)
 @RestController
@@ -24,24 +32,42 @@ public class AppResource {
 	@Autowired 
 	UserService userService;
 	
-	@RequestMapping(value = "/claimPolicy",method = RequestMethod.POST)
-	public Claim claimPolicy(ClaimDto claimDto) {
-		Policy policy=policyService.findPolicyByPolicyNumber(claimDto.getPolicyNumber());
-		java.util.Date date=new java.util.Date();
-		// date2=(LocalDate)policy.getPolicyEndDate();
-		if(claimDto.getClaimAmount()>policy.getInsuranceAmount()||policy.getPolicyEndDate().compareTo(date)>0) {
-			return null;
-		}else {
-			User user=userService.findUserById(claimDto.getUserId());
-			Claim claim=new Claim();
-			claim.setClaimAmount(claimDto.getClaimAmount());
-			claim.setClaimForPolicyNumber(claimDto.getPolicyNumber());
-			claim.setClaimReason(claimDto.getClaimReason());
-			claim.setPolicy(policy);
-			claim.setClaimStatus("Pending From Admin");
-			claim.setUser(user);
-			policyService.claimPolicy(claim);
-		}
-		return null;
+	@Autowired
+	VehicleService vehicleService;
+
+	@GetMapping(value = "/insurance/scrape/vehicleInfo")
+	public ApiResponse vehicleInfo(@RequestParam String registrationNumber) throws IOException {
+		return vehicleService.scrapeVehicleInfo(registrationNumber);
 	}
+
+	
+
+	@RequestMapping(value = "/addorUpdateUser", method = RequestMethod.POST)
+	public ApiResponse addAUser(@RequestBody User user) {
+		
+		ApiResponse apiResponse = userService.signUpUser(user);
+		return apiResponse;
+	}
+
+	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	public ApiResponse login(@RequestBody LoginDto loginDto) {
+
+		return userService.login(loginDto);
+	}
+	@RequestMapping(value="/findPolicyBynumber",method=RequestMethod.GET)
+	public Policy findPolicy(@RequestParam long policyNumber) {
+		return policyService.findPolicyByPolicyNumber(policyNumber);
+	}
+	
+	@RequestMapping(value = "/claimPolicy",method = RequestMethod.POST)
+	public ApiResponse claimPolicy(@RequestBody ClaimDto claimDto) {
+		System.out.println(claimDto.getClaimAmount()+" "+claimDto.getClaimReason()+" "+claimDto.getClaimForPolicyNumber()+" "+claimDto.getUserId());
+		ApiResponse apiResponse=policyService.claimPolicy(claimDto);
+		return apiResponse;
+	}
+	
 }
+
+
+
+

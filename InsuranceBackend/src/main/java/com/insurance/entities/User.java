@@ -24,9 +24,10 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_insr_user")
 	long userId;
 	String userName;
+	@Column(unique = true,nullable = false)
 	String userEmail;
 	
-	@JsonIgnore
+	//@JsonIgnore
 	String userPassword;
 	
 	@Column(unique = true,nullable = false)

@@ -20,23 +20,40 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Transactional
 	public long signUpUser(User user) {
-		return 0;
+		User registerd_user = em.merge(user);
+
+		return registerd_user.getUserId();
 	}
 
 	@Transactional
 	public List<User> viewAllUsers() {
-		
-		return null;
+		String jpql = "select u from tbl_userData u";
+		Query query = em.createQuery(jpql);
+		List<User> users = query.getResultList();
+		return users;
 	}
 
-	@Override
+	@Transactional
 	public User findUserById(long userId) {
-		return null;
+		User user = em.find(User.class, userId);
+		return user;
 	}
 
-	@Override
+	@Transactional
 	public User deleteUser(long userId) {
-		return null;
+		User user = em.find(User.class, userId);
+		em.remove(user);
+		return user;
+	}
+
+	@Transactional
+	public User findByEmail(String email) {
+		String jpql="select e from User e where e.userEmail=:email";
+		Query query = em.createQuery(jpql);
+		query.setParameter("email", email);
+		User user=(User) query.getSingleResult();
+		System.out.println("user logged in");
+		return user;
 	}
 
 }

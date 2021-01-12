@@ -1,33 +1,34 @@
 package com.insurance.dto;
 
 public class ClaimDto {
-		long PolicyNumber;
-		long UserId;
-		double claimAmount;
-		String claimReason;
-		public long getPolicyNumber() {
-			return PolicyNumber;
-		}
-		public void setPolicyNumber(long policyNumber) {
-			PolicyNumber = policyNumber;
-		}
-		public long getUserId() {
-			return UserId;
-		}
-		public void setUserId(long userId) {
-			UserId = userId;
-		}
-		public double getClaimAmount() {
-			return claimAmount;
-		}
-		public void setClaimAmount(double claimAmount) {
-			this.claimAmount = claimAmount;
-		}
-		public String getClaimReason() {
-			return claimReason;
-		}
-		public void setClaimReason(String claimReason) {
-			this.claimReason = claimReason;
-		}
+	String claimReason;
+	double claimAmount;
+	long claimForPolicyNumber;
+	long userId;
+	public String getClaimReason() {
+		return claimReason;
+	}
+	public void setClaimReason(String claimReason) {
+		this.claimReason = claimReason;
+	}
+	public double getClaimAmount() {
+		return claimAmount;
+	}
+	public void setClaimAmount(double claimAmount) {
+		this.claimAmount = claimAmount;
+	}
+	public long getClaimForPolicyNumber() {
+		return claimForPolicyNumber;
+	}
+	public void setClaimForPolicyNumber(long claimForPolicyNumber) {
+		this.claimForPolicyNumber = claimForPolicyNumber;
+	}
+	public long getUserId() {
+		return userId;
+	}
+	public void setUserId(long userId) {
+		this.userId = userId;
+	}
+	
 		
 }

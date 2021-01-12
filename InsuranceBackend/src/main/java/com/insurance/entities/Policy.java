@@ -20,7 +20,7 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.NaturalId;
 
 @Entity
-@Table(name = "tbl_policyData")
+@Table(name = "tbl_policy_data")
 public class Policy {
 
 	@Id
