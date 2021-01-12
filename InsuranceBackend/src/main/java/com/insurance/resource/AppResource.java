@@ -32,10 +32,7 @@ public class AppResource {
 	@Autowired
 	PolicyService policyService;
 
-	@GetMapping(value = "/insurance/scrape/vehicleInfo")
-	public ApiResponse vehicleInfo(@RequestParam String registrationNumber) throws IOException {
-		return vehicleService.scrapeVehicleInfo(registrationNumber);
-	}
+
 
 	@Autowired
 	UserService userService;
