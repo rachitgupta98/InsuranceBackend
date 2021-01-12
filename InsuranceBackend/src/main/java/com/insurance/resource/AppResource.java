@@ -1,6 +1,7 @@
 
 
 
+
 package com.insurance.resource;
 
 import java.io.IOException;
@@ -39,11 +40,6 @@ public class AppResource {
 	
 	@Autowired
 	VehicleService vehicleService;
-
-	@GetMapping(value = "/insurance/scrape/vehicleInfo")
-	public ApiResponse vehicleInfo(@RequestParam String registrationNumber) throws IOException {
-		return vehicleService.scrapeVehicleInfo(registrationNumber);
-	}
 
 	
 
@@ -91,8 +87,6 @@ public class AppResource {
 	}
 	
 }
-
-
 
 
 
