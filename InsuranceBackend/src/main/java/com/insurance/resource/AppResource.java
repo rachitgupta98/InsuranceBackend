@@ -60,7 +60,7 @@ public class AppResource {
 	}
 	
 	@PostMapping(value = "/insurance/buyPolicy")
-	public ApiResponse buyPolicy(@RequestBody Policy policy) {
+	public ApiResponse buyPolicy(@RequestBody PolicyDto policy) {
 
 		return policyService.buyPolicy(policy);
 	}
