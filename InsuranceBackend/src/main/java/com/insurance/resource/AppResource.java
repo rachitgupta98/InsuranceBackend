@@ -41,7 +41,8 @@ public class AppResource {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ApiResponse login(@RequestBody LoginDto loginDto) {
-
+		System.out.println(""+loginDto.getUserEmail());
+		System.out.println(""+loginDto.getUserPassword());
 		return userService.login(loginDto);
 	}
 
