@@ -29,7 +29,8 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 
 	@Transactional
 	public long addOrUpdateVehicle(Vehicle vehicle) {
-		return 0;
+		Vehicle vehicleData = em.merge(vehicle);
+		return vehicleData.getVehicleId();
 	}
 
 	@Transactional

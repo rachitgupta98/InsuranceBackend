@@ -21,13 +21,13 @@ public class Vehicle {
 	long vehicleId;
 
 	String ownerName;
-	String registrationNumber;
-	Date registrationDate;
-	String vehicleNameModel;
-	String chasisNumber;
-	String EngineNumber;
-	String Fuel_type;
-	String vehicleType;
+	String registrationNo;
+	String registrationDate;
+	String makerModel;
+	String chasisNo;
+	String engineNo;
+	String fuelType;
+	String vehicleClass;
 
 	@OneToOne(mappedBy = "vehicle", cascade = CascadeType.ALL)
 	Policy policy;
@@ -48,60 +48,62 @@ public class Vehicle {
 		this.ownerName = ownerName;
 	}
 
-	public String getRegistrationNumber() {
-		return registrationNumber;
+	public String getRegistrationNo() {
+		return registrationNo;
 	}
 
-	public void setRegistrationNumber(String registrationNumber) {
-		this.registrationNumber = registrationNumber;
+	public void setRegistrationNo(String registrationNo) {
+		this.registrationNo = registrationNo;
 	}
 
-	public Date getRegistrationDate() {
+	public String getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(String registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 
-	public String getVehicleNameModel() {
-		return vehicleNameModel;
+	public String getMakerModel() {
+		return makerModel;
 	}
 
-	public void setVehicleNameModel(String vehicleNameModel) {
-		this.vehicleNameModel = vehicleNameModel;
+	public void setMakerModel(String makerModel) {
+		this.makerModel = makerModel;
 	}
 
-	public String getChasisNumber() {
-		return chasisNumber;
+	public String getChasisNo() {
+		return chasisNo;
 	}
 
-	public void setChasisNumber(String chasisNumber) {
-		this.chasisNumber = chasisNumber;
+	public void setChasisNo(String chasisNo) {
+		this.chasisNo = chasisNo;
 	}
 
-	public String getEngineNumber() {
-		return EngineNumber;
+	public String getEngineNo() {
+		return engineNo;
 	}
 
-	public void setEngineNumber(String engineNumber) {
-		EngineNumber = engineNumber;
+	public void setEngineNo(String engineNo) {
+		this.engineNo = engineNo;
 	}
 
-	public String getFuel_type() {
-		return Fuel_type;
+	
+
+	public String getFuelType() {
+		return fuelType;
 	}
 
-	public void setFuel_type(String fuel_type) {
-		Fuel_type = fuel_type;
+	public void setFuelType(String fuelType) {
+		this.fuelType = fuelType;
 	}
 
-	public String getVehicleType() {
-		return vehicleType;
+	public String getVehicleClass() {
+		return vehicleClass;
 	}
 
-	public void setVehicleType(String vehicleType) {
-		this.vehicleType = vehicleType;
+	public void setVehicleClass(String vehicleClass) {
+		this.vehicleClass = vehicleClass;
 	}
 
 	public Policy getPolicy() {
@@ -111,5 +113,7 @@ public class Vehicle {
 	public void setPolicy(Policy policy) {
 		this.policy = policy;
 	}
+
+	
 
 }

@@ -1,5 +1,10 @@
 package com.insurance.repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Repository;
 
 import com.insurance.apiResponse.ApiResponse;
@@ -9,10 +14,14 @@ import com.insurance.entities.Policy;
 @Repository
 public class PolicyRepositoryImpl implements PolicyRepository {
 
+	@PersistenceContext
+	EntityManager em;
+	
 	@Override
+	@Transactional
 	public long buyPolicy(Policy policy) {
-		// TODO Auto-generated method stub
-		return 0;
+		Policy policyData = em.merge(policy);
+		return policyData.getPolicyId();
 	}
 
 	@Override
@@ -26,5 +35,17 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	@Override
+	public Policy findPolicyByPolicyNumber(long policyNumber) {
+		// TODO Auto-generated method stub
+		String jpql = "select p from Policy p where p.policyNumber=policyNumber";
+		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
+		
+		return query.getSingleResult();
+		
+	}
+
+	
 
 }
