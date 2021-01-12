@@ -17,12 +17,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	@PersistenceContext
 	EntityManager em;
 	
-	@Override
-	@Transactional
-	public long buyPolicy(Policy policy) {
-		Policy policyData = em.merge(policy);
-		return policyData.getPolicyId();
-	}
+	
 
 	@Override
 	public long claimPolicy(long policyNumber) {
@@ -37,6 +32,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	}
 
 	@Override
+	@Transactional
 	public Policy findPolicyByPolicyNumber(long policyNumber) {
 		// TODO Auto-generated method stub
 		String jpql = "select p from Policy p where p.policyNumber=policyNumber";
@@ -44,6 +40,13 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		
 		return query.getSingleResult();
 		
+	}
+
+	@Override
+	@Transactional
+	public long buyPolicy(Policy policy) {
+		Policy policyData = em.merge(policy);
+		return policyData.getPolicyId();
 	}
 
 	
