@@ -10,5 +10,4 @@ public interface VehicleService {
 	public ApiResponse addOrUpdateVehicle(Vehicle vehicle);
 	public ApiResponse viewAllvehicles();
 	public ApiResponse findVehicleById(String registrationNumber);
-	public ApiResponse scrapeVehicleInfo(String registrationNumber) throws IOException;
 }

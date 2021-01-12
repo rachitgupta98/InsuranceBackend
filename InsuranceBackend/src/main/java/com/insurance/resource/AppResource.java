@@ -32,10 +32,7 @@ public class AppResource {
 	@Autowired
 	PolicyService policyService;
 
-	@GetMapping(value = "/insurance/scrape/vehicleInfo")
-	public ApiResponse vehicleInfo(@RequestParam String registrationNumber) throws IOException {
-		return vehicleService.scrapeVehicleInfo(registrationNumber);
-	}
+
 
 	@Autowired
 	UserService userService;
@@ -48,8 +45,7 @@ public class AppResource {
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public ApiResponse login(@RequestBody LoginDto loginDto) {
-		System.out.println(""+loginDto.getUserEmail());
-		System.out.println(""+loginDto.getUserPassword());
+
 		return userService.login(loginDto);
 	}
 
