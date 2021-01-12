@@ -1,4 +1,5 @@
 
+
 package com.insurance.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -6,11 +7,15 @@ import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDto;
+import com.insurance.dto.PolicyDto;
 import com.insurance.dto.RenewDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
+import com.insurance.entities.Vehicle;
 import com.insurance.repository.PolicyRepository;
+import com.insurance.repository.UserRepository;
+import com.insurance.repository.VehicleRepository;
 
 @Service
 public class PolicyServiceImpl implements PolicyService {
@@ -18,22 +23,20 @@ public class PolicyServiceImpl implements PolicyService {
 	PolicyRepository policyRepository;
 	@Autowired
 	UserService userService;
+	@Autowired
+	UserRepository userRepository;
+	@Autowired
+	VehicleRepository vehicleRepository;
 	
 	
-	@Override
-	public ApiResponse buyPolicy(Policy policy) {
-		long generatedPolicyId = policyRepository.buyPolicy(policy);
-		if(generatedPolicyId > 0) {
-			return new ApiResponse(200, "Policy data is saved", null);
-		}
-		return new ApiResponse(400, "Policy data is not saved", null);
-	}
+	
 
 	@Override
 	public ApiResponse claimPolicy(ClaimDto claimDto) {
-		System.out.println(claimDto.getClaimForPolicyNumber());
+		//System.out.println(claimDto.getClaimForPolicyNumber());
 		ApiResponse api=findPolicyByPolicyNumber(claimDto.getClaimForPolicyNumber());
 		Policy policy=(Policy)api.getResult();
+		System.out.println(policy.getPolicyId());
 		//System.out.println(api.getResult());
 		//System.out.println(policy.getPlanType());
 		//Policy policy=findPolicyByPolicyNumber(12321);
@@ -42,7 +45,9 @@ public class PolicyServiceImpl implements PolicyService {
 			ApiResponse apiResponse=new ApiResponse(404,"policy not found",null);
 			return apiResponse;
 		}else {
+			System.out.println(policy.getUser());
 			User user1=policy.getUser();
+			System.out.println(user1.getUserName());
 			long userId=user1.getUserId();
 			java.util.Date date=new java.util.Date();
 			if(claimDto.getClaimAmount()>policy.getInsuranceAmount()) {
@@ -53,10 +58,10 @@ public class PolicyServiceImpl implements PolicyService {
 				ApiResponse apiResponse=new ApiResponse(404,"Policy has expired",null);
 				return apiResponse;
 			}
-			  else if(userId!=claimDto.getUserId()) { ApiResponse apiResponse=new
-			  ApiResponse(404,"User not valid for this particular policy",null); return
-			  apiResponse; }
-			 
+			else if(userId!=claimDto.getUserId()) { ApiResponse apiResponse=new
+			  ApiResponse(404,"User not valid for this particular policy",null);
+			  return apiResponse; 
+			  }
 			else {
 				User user=userService.findUserById(claimDto.getUserId());
 				Claim claim=new Claim();
@@ -67,7 +72,7 @@ public class PolicyServiceImpl implements PolicyService {
 				claim.setClaimStatus("Pending From Admin");
 				claim.setUser(user);
 				claim=policyRepository.claimPolicy(claim);
-				ApiResponse apiResponse=new ApiResponse(200, "Claim submitted pending from the back end", claim);
+				ApiResponse apiResponse=new ApiResponse(200, "Claim submitted, pending from the back end", claim);
 				return apiResponse;
 			} 
 		}
@@ -79,14 +84,43 @@ public class PolicyServiceImpl implements PolicyService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public ApiResponse buyPolicy(PolicyDto policy) {
+		//int boundedRandomValue = ThreadLocalRandom.current().nextInt(0, 100);
+		
+		long userId = policy.getUserId();
+		User user = userRepository.findUserById(userId);
+		
+		long vehicleId = policy.getVehicleId();
+		Vehicle vehicle = vehicleRepository.findVehicleByVehicleId(vehicleId);
+		
+		Policy newpolicy = new Policy();
+		newpolicy.setUser(user);
+		newpolicy.setVehicle(vehicle);
+		newpolicy.setPolicyNumber(policy.getPolicyNumber());
+		newpolicy.setPlanType(policy.getPlanType());
+		newpolicy.setPolicyStartDate(policy.getPolicyStartDate());
+		newpolicy.setPolicyEndDate(policy.getPolicyEndDate());
+		newpolicy.setPremiumAmount(policy.getPremiumAmount());
+		newpolicy.setPurchaseDate(policy.getPurchaseDate());
+		newpolicy.setExpired(policy.isExpired());
+		newpolicy.setInsuranceAmount(policy.getInsuranceAmount());
+		
+		long generatedPolicyId = policyRepository.buyPolicy(newpolicy);
+		
+		if(generatedPolicyId > 0) {
+			return new ApiResponse(200, "Policy data is saved", null);
+		}
+		return new ApiResponse(400, "Policy data is not saved", null);
+	}
 	@Override
 	public ApiResponse findPolicyByPolicyNumber(long policyNo) {
+		System.out.println(policyNo);
 		Policy policyData = policyRepository.findPolicyByPolicyNumber(policyNo);
 		/*
 		 * System.out.println(policyData.getUser()); System.out.println(policyData);
 		 */
-		if(policyData.getUser() == null) {
+		System.out.println(policyData);
+		if(policyData == null) {
 			return new ApiResponse(400, "No policy found", null);
 		}
 		return new ApiResponse(200, "Policy Data found", policyData);

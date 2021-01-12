@@ -1,5 +1,6 @@
 
 
+
 package com.insurance.resource;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.PolicyDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
@@ -70,7 +72,7 @@ public class AppResource {
 	}
 	
 	@PostMapping(value = "/insurance/buyPolicy")
-	public ApiResponse buyPolicy(@RequestBody Policy policy) {
+	public ApiResponse buyPolicy(@RequestBody PolicyDto policy) {
 
 		return policyService.buyPolicy(policy);
 	}
@@ -83,7 +85,7 @@ public class AppResource {
 	
 	@RequestMapping(value = "/claimPolicy",method = RequestMethod.POST)
 	public ApiResponse claimPolicy(@RequestBody ClaimDto claimDto) {
-		System.out.println(claimDto.getClaimAmount()+" "+claimDto.getClaimReason()+" "+claimDto.getClaimForPolicyNumber()+" "+claimDto.getUserId());
+		//System.out.println(claimDto.getClaimAmount()+" "+claimDto.getClaimReason()+" "+claimDto.getClaimForPolicyNumber()+" "+claimDto.getUserId());
 		ApiResponse apiResponse=policyService.claimPolicy(claimDto);
 		return apiResponse;
 	}

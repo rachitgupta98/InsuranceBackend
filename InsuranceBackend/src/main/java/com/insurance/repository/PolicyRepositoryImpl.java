@@ -1,4 +1,5 @@
 
+
 package com.insurance.repository;
 
 import javax.persistence.EntityManager;
@@ -36,11 +37,12 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	@Override
 	public Policy findPolicyByPolicyNumber(long policyNumber) {
 		// TODO Auto-generated method stub
+		System.out.println(policyNumber);
 		try {
 		String jpql = "select p from Policy p where p.policyNumber=policyNumber";
 		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
 		
-		return (Policy)query.getSingleResult();
+		return query.getSingleResult();
 		}catch(NoResultException nre){
 			return null;
 		}
@@ -53,4 +55,3 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	}
 
 }
-

@@ -36,15 +36,15 @@ public class Policy {
 	long policyNumber;
 	
 	String planType;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	Date purchaseDate;
 	double premiumAmount;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	Date policyStartDate;
-	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
+	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
 	Date policyEndDate;
 	boolean isExpired;
-	int insuranceAmount;
+	long insuranceAmount;
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
@@ -54,8 +54,7 @@ public class Policy {
 	@JoinColumn(name = "vehicleId")
 	Vehicle vehicle;
 
-	@OneToMany(mappedBy = "policy",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
-	@JsonIgnore
+	@OneToMany(mappedBy = "policy",cascade = CascadeType.ALL)
 	List<Claim> claims;
 
 	@OneToOne(mappedBy = "policy", cascade = CascadeType.ALL)
@@ -125,14 +124,14 @@ public class Policy {
 		this.isExpired = isExpired;
 	}
 
-	public int getInsuranceAmount() {
+	public long getInsuranceAmount() {
 		return insuranceAmount;
 	}
 
-	public void setInsuranceAmount(int insuranceAmount) {
+	public void setInsuranceAmount(long insuranceAmount) {
 		this.insuranceAmount = insuranceAmount;
 	}
-
+	
 	public User getUser() {
 		return user;
 	}
@@ -140,7 +139,7 @@ public class Policy {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
 	public Vehicle getVehicle() {
 		return vehicle;
 	}

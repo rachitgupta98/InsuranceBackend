@@ -40,20 +40,17 @@ public class User {
 
 	// One user will have Many Policies
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
 	List<Policy> policy;
 
 	// one user can Claim more than one Policy
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
 	List<Claim> claim;
 	
 
 	// one user can do many premium payments for Policies
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-	@JsonIgnore
 	List<Payment> payment;
 
 	public long getUserId() {
