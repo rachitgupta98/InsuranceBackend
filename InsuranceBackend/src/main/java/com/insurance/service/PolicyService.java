@@ -12,4 +12,5 @@ public interface PolicyService {
 	public ApiResponse claimPolicy(ClaimDto claimdto);
 	public ApiResponse renewPolicy(RenewDto renew);
 	//public ApiResponse findPolicyByPolicyId(long policyNo);
+	public ApiResponse findPolicyByVehicleId(long vehicleId);
 }

@@ -106,4 +106,16 @@ public class PolicyServiceImpl implements PolicyService {
 		return new ApiResponse(400, "Failed to claim policy", null);
 	}
 
+
+	@Override
+	public ApiResponse findPolicyByVehicleId(long vehicleId) {
+		Vehicle vehicle = vehcileRepository.findVehicleByVehicleId(vehicleId);
+		Policy policy = vehicle.getPolicy();
+		//Policy storedPolicy = policyRepository.findPolicyByVehicleId(vehicleId);
+		if(policy != null) {
+			return new ApiResponse(200, "policy is existed", policy);
+		}
+		return new ApiResponse(400, "No policy existed", null);
+	}
+
 }

@@ -11,6 +11,6 @@ import com.insurance.model.VehicleModel;
 public interface VehicleRepository {
 	public Vehicle addOrUpdateVehicle(Vehicle vehicle);
 	public List<Vehicle> viewAllvehicles();
-	public Vehicle findVehicleById(String registrationNumber);
+	public Vehicle findVehicleByRegNo(String reg);
 	public Vehicle findVehicleByVehicleId(long vehicleId);
 }

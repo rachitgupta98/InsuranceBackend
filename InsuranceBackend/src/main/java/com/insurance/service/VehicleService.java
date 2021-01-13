@@ -9,5 +9,5 @@ import com.insurance.entities.Vehicle;
 public interface VehicleService {
 	public ApiResponse addOrUpdateVehicle(Vehicle vehicle);
 	public ApiResponse viewAllvehicles();
-	public ApiResponse findVehicleById(String registrationNumber);
+	public ApiResponse findVehicleByRegNo(String registration);
 }
