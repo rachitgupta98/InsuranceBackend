@@ -1,6 +1,7 @@
 package com.insurance.resource;
 
 import java.io.IOException;
+import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
 import com.insurance.dto.PolicyDto;
 import com.insurance.service.VehicleService;
+import com.insurance.entities.Admin;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
+import com.insurance.service.AdminService;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
 
@@ -33,7 +37,8 @@ public class AppResource {
 	@Autowired
 	PolicyService policyService;
 
-
+@Autowired
+AdminService adminService;
 
 	@Autowired
 	UserService userService;
@@ -58,14 +63,28 @@ public class AppResource {
 	
 	@PostMapping(value = "/insurance/buyPolicy")
 	public ApiResponse buyPolicy(@RequestBody PolicyDto policy) {
-
+		policy.setPurchaseDate(LocalDate.now());
+		policy.setPolicyStartDate(LocalDate.now());
+		policy.setPolicyEndDate(LocalDate.now().plusYears(policy.getPlanYear()));
 		return policyService.buyPolicy(policy);
 	}
 	
-	@GetMapping(value = "/insurance/findPolicy")
-	public ApiResponse buyPolicy(@RequestParam long policyNumber) {
+//	@GetMapping(value = "/insurance/findUserById")
+//	public ApiResponse findUser(@RequestParam long userId) {
+//
+//		return userService.findUserById(userId);
+//	}
+	
+	@PostMapping(value = "/insurance/claimPolicy")
+	public ApiResponse requestClaimPolicy(@RequestBody ClaimDto claimdto) {
 
-		return policyService.findPolicyByPolicyNumber(policyNumber);
+		return policyService.claimPolicy(claimdto);
+	}
+	
+	@PostMapping(value = "/insurance/addAdmin")
+	public ApiResponse registerAdmin(@RequestBody Admin admin) {
+
+		return adminService.addOrUpdateAdmin(admin);
 	}
 	
 	@RequestMapping(value ="/insurance/findUser/{userId}")

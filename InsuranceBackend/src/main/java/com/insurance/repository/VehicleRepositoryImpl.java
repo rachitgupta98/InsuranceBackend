@@ -28,9 +28,9 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 	EntityManager em;
 
 	@Transactional
-	public long addOrUpdateVehicle(Vehicle vehicle) {
+	public Vehicle addOrUpdateVehicle(Vehicle vehicle) {
 		Vehicle vehicleData = em.merge(vehicle);
-		return vehicleData.getVehicleId();
+		return vehicleData;
 	}
 
 	@Transactional

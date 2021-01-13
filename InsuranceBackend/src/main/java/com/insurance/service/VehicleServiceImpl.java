@@ -25,9 +25,9 @@ public class VehicleServiceImpl implements VehicleService {
 	@Override
 	public ApiResponse addOrUpdateVehicle(Vehicle vehicle) {
 		
-		long vehicleId = vehicleRepository.addOrUpdateVehicle(vehicle);
-		if(vehicleId > 0) {
-			return new ApiResponse(200, "Vehicle Data is registered successfully", null);
+		Vehicle vehicleData = vehicleRepository.addOrUpdateVehicle(vehicle);
+		if(vehicleData != null) {
+			return new ApiResponse(200, "Vehicle Data is registered successfully", vehicleData);
 
 		}
 		return new ApiResponse(400, "Vehicle registration failed", null);

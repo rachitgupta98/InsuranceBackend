@@ -1,25 +1,29 @@
 package com.insurance.dto;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class PolicyDto {
 
-	long policyNumber;	
 	long userId;
 	String planType;
-	Date purchaseDate;
+	LocalDate purchaseDate;
 	double premiumAmount;
-	Date policyStartDate;
-	Date policyEndDate;
+	LocalDate policyStartDate;
+	LocalDate policyEndDate;
 	boolean isExpired;
 	long insuranceAmount;
 	long vehicleId;
-	public long getPolicyNumber() {
-		return policyNumber;
+	int planYear;
+	
+	
+	public int getPlanYear() {
+		return planYear;
 	}
-	public void setPolicyNumber(long policyNumber) {
-		this.policyNumber = policyNumber;
+	public void setPlanYear(int planYear) {
+		this.planYear = planYear;
 	}
+
 	public long getUserId() {
 		return userId;
 	}
@@ -32,29 +36,12 @@ public class PolicyDto {
 	public void setPlanType(String planType) {
 		this.planType = planType;
 	}
-	public Date getPurchaseDate() {
-		return purchaseDate;
-	}
-	public void setPurchaseDate(Date purchaseDate) {
-		this.purchaseDate = purchaseDate;
-	}
+	
 	public double getPremiumAmount() {
 		return premiumAmount;
 	}
 	public void setPremiumAmount(double premiumAmount) {
 		this.premiumAmount = premiumAmount;
-	}
-	public Date getPolicyStartDate() {
-		return policyStartDate;
-	}
-	public void setPolicyStartDate(Date policyStartDate) {
-		this.policyStartDate = policyStartDate;
-	}
-	public Date getPolicyEndDate() {
-		return policyEndDate;
-	}
-	public void setPolicyEndDate(Date policyEndDate) {
-		this.policyEndDate = policyEndDate;
 	}
 	public boolean isExpired() {
 		return isExpired;
@@ -73,6 +60,24 @@ public class PolicyDto {
 	}
 	public void setVehicleId(long vehicleId) {
 		this.vehicleId = vehicleId;
+	}
+	public LocalDate getPurchaseDate() {
+		return purchaseDate;
+	}
+	public void setPurchaseDate(LocalDate purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+	public LocalDate getPolicyStartDate() {
+		return policyStartDate;
+	}
+	public void setPolicyStartDate(LocalDate policyStartDate) {
+		this.policyStartDate = policyStartDate;
+	}
+	public LocalDate getPolicyEndDate() {
+		return policyEndDate;
+	}
+	public void setPolicyEndDate(LocalDate policyEndDate) {
+		this.policyEndDate = policyEndDate;
 	}
 	
 	

@@ -1,5 +1,6 @@
 package com.insurance.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import org.hibernate.annotations.ManyToAny;
 import org.hibernate.annotations.NaturalId;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "tbl_policyData")
@@ -30,20 +32,21 @@ public class Policy {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_insr_policynumber")
 	long policyId;
 	
-	@Column(unique = true,nullable = false)
-	long policyNumber;
+//	@Column(unique = true,nullable = false)
+//	long policyNumber;
 	
 	String planType;
 	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-	Date purchaseDate;
+	LocalDate purchaseDate;
 	double premiumAmount;
 	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-	Date policyStartDate;
+	LocalDate policyStartDate;
 	//@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="dd-MM-yyyy")
-	Date policyEndDate;
+	LocalDate policyEndDate;
 	boolean isExpired;
 	long insuranceAmount;
-
+	int planYear;
+	
 	@ManyToOne
 	@JoinColumn(name = "userId")
 	User user;
@@ -56,6 +59,7 @@ public class Policy {
 	List<Claim> claims;
 
 	@OneToOne(mappedBy = "policy", cascade = CascadeType.ALL)
+	@JsonIgnore
 	Payment payment;
 
 	public long getPolicyId() {
@@ -65,14 +69,23 @@ public class Policy {
 	public void setPolicyId(long policyId) {
 		this.policyId = policyId;
 	}
+	
 
-	public long getPolicyNumber() {
-		return policyNumber;
+	public int getPlanYear() {
+		return planYear;
 	}
 
-	public void setPolicyNumber(long policyNumber) {
-		this.policyNumber = policyNumber;
+	public void setPlanYear(int planYear) {
+		this.planYear = planYear;
 	}
+
+//	public long getPolicyNumber() {
+//		return policyNumber;
+//	}
+//
+//	public void setPolicyNumber(long policyNumber) {
+//		this.policyNumber = policyNumber;
+//	}
 
 	public String getPlanType() {
 		return planType;
@@ -80,14 +93,6 @@ public class Policy {
 
 	public void setPlanType(String planType) {
 		this.planType = planType;
-	}
-
-	public Date getPurchaseDate() {
-		return purchaseDate;
-	}
-
-	public void setPurchaseDate(Date purchaseDate) {
-		this.purchaseDate = purchaseDate;
 	}
 
 	public double getPremiumAmount() {
@@ -98,19 +103,28 @@ public class Policy {
 		this.premiumAmount = premiumAmount;
 	}
 
-	public Date getPolicyStartDate() {
+	
+	public LocalDate getPurchaseDate() {
+		return purchaseDate;
+	}
+
+	public void setPurchaseDate(LocalDate purchaseDate) {
+		this.purchaseDate = purchaseDate;
+	}
+
+	public LocalDate getPolicyStartDate() {
 		return policyStartDate;
 	}
 
-	public void setPolicyStartDate(Date policyStartDate) {
+	public void setPolicyStartDate(LocalDate policyStartDate) {
 		this.policyStartDate = policyStartDate;
 	}
 
-	public Date getPolicyEndDate() {
+	public LocalDate getPolicyEndDate() {
 		return policyEndDate;
 	}
 
-	public void setPolicyEndDate(Date policyEndDate) {
+	public void setPolicyEndDate(LocalDate policyEndDate) {
 		this.policyEndDate = policyEndDate;
 	}
 

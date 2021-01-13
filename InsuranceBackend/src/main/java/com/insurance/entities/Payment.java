@@ -12,6 +12,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_premiumPayData")
 public class Payment {
@@ -27,6 +29,7 @@ public class Payment {
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
+	@JsonIgnore
 	User user;
 
 	@OneToOne
