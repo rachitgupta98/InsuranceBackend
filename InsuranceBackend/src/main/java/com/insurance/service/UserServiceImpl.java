@@ -52,8 +52,13 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApiResponse findUserById(long userId) {
 		// TODO Auto-generated method stub
+		User user=userRepository.findUserById(userId);
+		if(user!=null)
+			return new ApiResponse(200,"SUCCESS",user);
+		else
+			return new ApiResponse(400, "FAILED", null);
 
-		return null;
+		
 	}
 
 	@Override
