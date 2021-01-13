@@ -1,9 +1,11 @@
+
 package com.insurance.dto;
 
 public class ClaimDto {
+
 	String claimReason;
 	double claimAmount;
-	long claimForPolicyNumber;
+	long claimForPolicyId;
 	long userId;
 	public String getClaimReason() {
 		return claimReason;
@@ -17,11 +19,12 @@ public class ClaimDto {
 	public void setClaimAmount(double claimAmount) {
 		this.claimAmount = claimAmount;
 	}
-	public long getClaimForPolicyNumber() {
-		return claimForPolicyNumber;
+	
+	public long getClaimForPolicyId() {
+		return claimForPolicyId;
 	}
-	public void setClaimForPolicyNumber(long claimForPolicyNumber) {
-		this.claimForPolicyNumber = claimForPolicyNumber;
+	public void setClaimForPolicyId(long claimForPolicyId) {
+		this.claimForPolicyId = claimForPolicyId;
 	}
 	public long getUserId() {
 		return userId;
@@ -30,5 +33,5 @@ public class ClaimDto {
 		this.userId = userId;
 	}
 	
-		
+	
 }

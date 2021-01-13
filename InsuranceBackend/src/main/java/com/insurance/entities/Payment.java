@@ -29,6 +29,7 @@ public class Payment {
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
+	@JsonIgnore
 	User user;
 
 	@OneToOne

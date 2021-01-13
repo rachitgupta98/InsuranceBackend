@@ -1,10 +1,13 @@
 package com.insurance.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
+import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.repository.UserRepository;
 
@@ -53,7 +56,9 @@ public class UserServiceImpl implements UserService {
 	public User findUserById(long userId) {
 		// TODO Auto-generated method stub
 
+
 		return userRepository.findUserById(userId);
+
 	}
 
 	@Override

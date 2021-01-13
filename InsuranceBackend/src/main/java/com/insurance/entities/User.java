@@ -40,11 +40,13 @@ public class User {
 
 	// One user will have Many Policies
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	List<Policy> policy;
 
 	// one user can Claim more than one Policy
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+	@JsonIgnore
 	List<Claim> claim;
 	
 

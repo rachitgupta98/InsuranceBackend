@@ -25,15 +25,19 @@ public class Claim {
 	String claimReason;
 	String claimStatus;
 	double claimAmount;
+
 	String documentFile;
 	long claimForPolicyNumber;
 
+
 	@ManyToOne
 	@JoinColumn(name = "userId")
+	@JsonIgnore
 	User user;
 
 	@ManyToOne
 	@JoinColumn(name="policyId")
+	@JsonIgnore
 	Policy policy;
 
 	@ManyToOne
@@ -78,14 +82,6 @@ public class Claim {
 
 	public void setClaimAmount(double claimAmount) {
 		this.claimAmount = claimAmount;
-	}
-
-	public long getClaimForPolicyNumber() {
-		return claimForPolicyNumber;
-	}
-
-	public void setClaimForPolicyNumber(long claimForPolicyNumber) {
-		this.claimForPolicyNumber = claimForPolicyNumber;
 	}
 
 	public User getUser() {
