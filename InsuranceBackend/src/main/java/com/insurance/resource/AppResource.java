@@ -125,4 +125,14 @@ AdminService adminService;
 
 		return adminService.addOrUpdateAdmin(admin);
 	}
+	
+	@GetMapping(value="/insurance/findPolicyByVehicleId")
+	public ApiResponse findPolicyByVehicleId(@RequestParam long vehicleId) {
+		return policyService.findPolicyByVehicleId(vehicleId);
+	}
+	
+	@GetMapping(value="/insurance/findVehicleByRegNo")
+	public ApiResponse findVehicleByRegNo(@RequestParam String regist) {
+		return vehicleService.findVehicleByRegNo(regist);
+	}
 }

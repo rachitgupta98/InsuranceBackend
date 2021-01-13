@@ -3,6 +3,7 @@ package com.insurance.repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
@@ -50,6 +51,16 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	public Claim claimPolicy(Claim claim) {
 		Claim claimData = em.merge(claim);
 		return claimData;
+	}
+
+	@Override
+	@Transactional
+	public Policy findPolicyByVehicleId(long vehicleId) {
+		String jpql = "select p from Policy p where p.vehicle=:vehicleId";
+		Query query = em.createQuery(jpql);
+		query.setParameter("vehicleId", vehicleId);
+		return (Policy) query.getSingleResult();
+		
 	}
 
 	

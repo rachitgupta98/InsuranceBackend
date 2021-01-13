@@ -16,4 +16,5 @@ public interface PolicyService {
 	public Claim findClaimById(long claimId);
 	public ApiResponse updateClaim(long claimId,String docFile);
 	//public ApiResponse findPolicyByPolicyId(long policyNo);
+	public ApiResponse findPolicyByVehicleId(long vehicleId);
 }
