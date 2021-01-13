@@ -1,5 +1,6 @@
 package com.insurance.service;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -104,6 +105,18 @@ public class PolicyServiceImpl implements PolicyService {
 			return new ApiResponse(200, "Claim is registered", claimData);
 		}
 		return new ApiResponse(400, "Failed to claim policy", null);
+	}
+
+
+	@Override
+	public ApiResponse findPolicyByUserId(long userId) {
+		// TODO Auto-generated method stub
+		List<Policy> policy=policyRepository.findPolicyByUserId(userId);
+		if(policy!= null)
+		{
+			return new ApiResponse(200,"Policy is Fetched",policy);
+		}
+		return new ApiResponse(400,"Policy can't be Fetched",null);
 	}
 
 }

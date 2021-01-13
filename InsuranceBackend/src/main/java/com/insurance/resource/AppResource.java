@@ -33,12 +33,12 @@ public class AppResource {
 
 	@Autowired
 	VehicleService vehicleService;
-	
+
 	@Autowired
 	PolicyService policyService;
 
-@Autowired
-AdminService adminService;
+	@Autowired
+	AdminService adminService;
 
 	@Autowired
 	UserService userService;
@@ -60,7 +60,7 @@ AdminService adminService;
 
 		return vehicleService.addOrUpdateVehicle(vehicle);
 	}
-	
+
 	@PostMapping(value = "/insurance/buyPolicy")
 	public ApiResponse buyPolicy(@RequestBody PolicyDto policy) {
 		policy.setPurchaseDate(LocalDate.now());
@@ -68,28 +68,34 @@ AdminService adminService;
 		policy.setPolicyEndDate(LocalDate.now().plusYears(policy.getPlanYear()));
 		return policyService.buyPolicy(policy);
 	}
-	
+
 //	@GetMapping(value = "/insurance/findUserById")
 //	public ApiResponse findUser(@RequestParam long userId) {
 //
 //		return userService.findUserById(userId);
 //	}
-	
+
 	@PostMapping(value = "/insurance/claimPolicy")
 	public ApiResponse requestClaimPolicy(@RequestBody ClaimDto claimdto) {
 
 		return policyService.claimPolicy(claimdto);
 	}
-	
+
 	@PostMapping(value = "/insurance/addAdmin")
 	public ApiResponse registerAdmin(@RequestBody Admin admin) {
 
 		return adminService.addOrUpdateAdmin(admin);
 	}
-	
-	@RequestMapping(value ="/insurance/findUser/{userId}")
+
+	@RequestMapping(value = "/insurance/findUser/{userId}")
 	public ApiResponse findUser(@PathVariable("userId") long userId) {
 		System.out.println("entering");
 		return userService.findUserById(userId);
+	}
+	
+	@RequestMapping(value="/insurance/policies/{userId}")
+	public ApiResponse findPolicybyuserId(@PathVariable("userId") long userId)
+	{
+		return policyService.findPolicyByUserId(userId);
 	}
 }
