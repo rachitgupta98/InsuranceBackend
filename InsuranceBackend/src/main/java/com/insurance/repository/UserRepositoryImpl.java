@@ -8,6 +8,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
 import com.insurance.apiResponse.ApiResponse;
@@ -49,14 +50,24 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@Override
 	public User findByEmail(String email) {
+		
 		String jpql="select e from User e where e.userEmail=:email";
 		Query query = em.createQuery(jpql);
 		query.setParameter("email", email);
 		User user=(User) query.getSingleResult();
 		System.out.println("user logged in");
 		return user;
+		}
+
+	 public User save(User user) {
+	        Session session = em.unwrap(Session.class);
+	        session.persist(user);
+	        return user;
+	    }
+
+	
 	}
 
 
 
-}
+

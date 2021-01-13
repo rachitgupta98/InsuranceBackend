@@ -1,6 +1,8 @@
 package com.insurance.resource;
 
 import java.io.IOException;
+import java.net.IDN;
+
 import java.time.LocalDate;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
+
 import com.insurance.dto.PolicyDto;
 import com.insurance.service.VehicleService;
 
@@ -23,16 +26,12 @@ import com.insurance.service.VehicleService;
 
 
 import com.insurance.entities.Admin;
-import com.insurance.entities.Admin;
-import com.insurance.entities.Admin;
-import com.insurance.entities.Admin;
-import com.insurance.entities.Policy;
+
 import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
 import com.insurance.service.EmailService;
 import com.insurance.service.AdminService;
-import com.insurance.service.AdminService;
-import com.insurance.service.AdminService;
+
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
 
@@ -46,9 +45,11 @@ public class AppResource {
 	@Autowired
 	PolicyService policyService;
 
-@Autowired
-AdminService adminService;
-
+    @Autowired
+    AdminService adminService;
+ 
+    @Autowired
+    EmailService emailService;
 
 	@Autowired
 	UserService userService;
@@ -79,11 +80,11 @@ AdminService adminService;
 		return policyService.buyPolicy(policy);
 	}
 	
-//	@GetMapping(value = "/insurance/findUserById")
-//	public ApiResponse findUser(@RequestParam long userId) {
-//
-//		return userService.findUserById(userId);
-//	}
+	@GetMapping(value = "/findUserByEmail")
+	public ApiResponse findUser(@RequestParam String userEmail) {
+
+		return userService.findUserByEmail(userEmail);
+	}
 	
 	@PostMapping(value = "/insurance/claimPolicy")
 	public ApiResponse requestClaimPolicy(@RequestBody ClaimDto claimdto) {
@@ -96,4 +97,34 @@ AdminService adminService;
 
 		return adminService.addOrUpdateAdmin(admin);
 	}
+	
+	@RequestMapping(value="/forgotPassword",method=RequestMethod.POST)
+	public ApiResponse forgotPassword(@RequestBody User user){
+		    
+	       
+			String subject="Here's the link to reset your password";
+			String email = user.getUserEmail();
+			String text="<p>Hello,</p>"
+		            + "<p>You have requested to reset your password.</p>"
+		            + "<p>Click the link below to change your password:</p>"
+		            + "<p><a href=\"" +"\resetPassword"+ "\">Change my password</a></p>"
+		            + "<br>"
+		            + "<p>Ignore this email if you do remember your password, "
+		            + "or you have not made the request.</p>";
+			emailService.sendEmail(email, text, subject);
+			System.out.println("Email Sent.....");
+			return userService.findUserByEmail(email);
+		
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ApiResponse resetPassword(@RequestParam String email ,String password) {
+		
+	  return  userService.updatePassword(email, password);
+	}
+
+
+	
+
+	
 }

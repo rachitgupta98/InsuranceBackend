@@ -13,7 +13,8 @@ public interface UserService {
 	public ApiResponse findUserById(long userId);
 	public ApiResponse deleteUser(long userId);
 	public ApiResponse login(LoginDto loginDto);
-	public ApiResponse findByEmail(String email);
+	public ApiResponse findUserByEmail(String userEmail);
+	public ApiResponse updatePassword(String email,String password);
    
     
 }

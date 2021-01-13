@@ -68,11 +68,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 
+	
 	@Override
-	public ApiResponse findByEmail(String email) {
+	public ApiResponse findUserByEmail(String userEmail) {
 		LoginDto loginDto=new LoginDto();
 		 User user = userRepository.findByEmail(loginDto.getUserEmail());
-	        System.out.println("in forgot api");
+	     
 	          if(user.getUserEmail().equals(loginDto.getUserEmail())) {
 	    
 	        	  return new ApiResponse(200, "SUCCESS", user) ;
@@ -80,6 +81,16 @@ public class UserServiceImpl implements UserService {
 	       
 	          return new ApiResponse(400, "FAILED", null) ;
 	}
+
+
+
+	 public ApiResponse updatePassword(String email, String newPassword) {
+	       
+		  User user=userRepository.findByEmail(email);
+	        user.setUserPassword(newPassword);
+	       userRepository.save(user);
+	       return new ApiResponse(200, "UPDATED", user) ;
+	    }
 
 	
 
