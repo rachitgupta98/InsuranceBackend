@@ -6,8 +6,10 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 import org.jsoup.Connection;
@@ -39,12 +41,7 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 		return null;
 	}
 
-	@Transactional
-	public Vehicle findVehicleById(String registrationNumber) {
-
-		return null;
-	}
-
+	
 	
 
 	@Override
@@ -52,6 +49,23 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 	public Vehicle findVehicleByVehicleId(long vehicleId) {
 		// TODO Auto-generated method stub
 		return em.find(Vehicle.class, vehicleId);
+	}
+
+	@Override
+	@Transactional
+	public Vehicle findVehicleByRegNo(String reg) {
+		String jpql = "select v from Vehicle v where v.registrationNo=:reg";
+		//TypedQuery<Vehicle> vehicleData = em.createQuery(jpql, Vehicle.class);
+		Query query = em.createQuery(jpql);
+		query.setParameter("reg", reg);
+		Vehicle v=null;
+		try {
+			v = (Vehicle) query.getSingleResult();
+		}
+		catch(NoResultException noResult) {
+			return null;
+		}		
+		return v;
 	}
 
 	

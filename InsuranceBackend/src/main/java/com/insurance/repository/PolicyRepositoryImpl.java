@@ -63,6 +63,16 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		return claimData;
 	}
 
+	@Override
+	@Transactional
+	public Policy findPolicyByVehicleId(long vehicleId) {
+		String jpql = "select p from Policy p where p.vehicle=:vehicleId";
+		Query query = em.createQuery(jpql);
+		query.setParameter("vehicleId", vehicleId);
+		return (Policy) query.getSingleResult();
+		
+	}
+
 	
 
 }

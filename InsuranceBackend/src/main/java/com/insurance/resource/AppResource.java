@@ -33,12 +33,12 @@ public class AppResource {
 
 	@Autowired
 	VehicleService vehicleService;
-
+	
 	@Autowired
 	PolicyService policyService;
 
-	@Autowired
-	AdminService adminService;
+@Autowired
+AdminService adminService;
 
 	@Autowired
 	UserService userService;

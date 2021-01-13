@@ -51,6 +51,11 @@ public class Vehicle {
 		this.ownerName = ownerName;
 	}
 
+	
+
+	
+
+
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -58,8 +63,6 @@ public class Vehicle {
 	public void setRegistrationNo(String registrationNo) {
 		this.registrationNo = registrationNo;
 	}
-
-	
 
 	public Date getRegistrationDate() {
 		return registrationDate;

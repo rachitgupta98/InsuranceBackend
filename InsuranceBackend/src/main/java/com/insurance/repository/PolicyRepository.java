@@ -15,4 +15,5 @@ public interface PolicyRepository {
 	public long renewPolicy(RenewDto renew);
 	public Policy findPolicyByPolicyId(long policyId);
 	public List<Policy> findPolicyByUserId(long userId);
+	public Policy findPolicyByVehicleId(long vehicleId);
 }
