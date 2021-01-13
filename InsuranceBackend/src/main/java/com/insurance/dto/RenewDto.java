@@ -2,14 +2,21 @@ package com.insurance.dto;
 
 public class RenewDto {
 
-	long policyNumber;
+	long policyId;
 	String registrationNumber;
+	int planYear;
 	
-	public long getPolicyNumber() {
-		return policyNumber;
+	public int getPlanYear() {
+		return planYear;
 	}
-	public void setPolicyNumber(long policyNumber) {
-		this.policyNumber = policyNumber;
+	public void setPlanYear(int planYear) {
+		this.planYear = planYear;
+	}
+	public long getPolicyId() {
+		return policyId;
+	}
+	public void setPolicyId(long policyId) {
+		this.policyId = policyId;
 	}
 	public String getRegistrationNumber() {
 		return registrationNumber;

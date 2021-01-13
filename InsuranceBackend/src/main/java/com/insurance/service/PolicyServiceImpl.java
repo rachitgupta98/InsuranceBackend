@@ -1,5 +1,7 @@
 package com.insurance.service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
@@ -64,12 +66,36 @@ public class PolicyServiceImpl implements PolicyService {
 		}
 		return new ApiResponse(400, "Policy data is not saved", null);
 	}
+	@Override
+	public Claim findClaimById(long claimId) {
+		return policyRepository.findClaimById(claimId);
+		//return null;
+	}
 
+	@Override
+	public ApiResponse updateClaim(long claimId, String docFile) {
+		// TODO Auto-generated method stub
+		Claim claim=findClaimById(claimId);
+		claim.setDocumentFile(docFile);
+		Claim updatedClaim=policyRepository.claimPolicy(claim);
+		return new ApiResponse(200, "Doc File Uploaded Successfully", updatedClaim);
+	}
 	
 	@Override
-	public ApiResponse renewPolicy(RenewDto renew) {
-		// TODO Auto-generated method stub
-		return null;
+	public ApiResponse renewPolicy(long policyId) {
+		Policy policy=policyRepository.findPolicyByPolicyId(policyId);
+		if(policy==null) {
+			return new ApiResponse(404, "no such policy exists", null);
+		}
+		else {
+			LocalDate date=LocalDate.now();
+			if(policy.getPolicyEndDate().compareTo(date)>0) {
+				return new ApiResponse(404, "Policy is yet to expire, cannot be renewed now, you can renew it after "+policy.getPolicyEndDate(), null);
+			}
+			else {
+				return new ApiResponse(200, "Please enter the details to renew the policy", policyId);				
+			}
+		}
 	}
 
 //	@Override
@@ -86,37 +112,40 @@ public class PolicyServiceImpl implements PolicyService {
 	public ApiResponse claimPolicy(ClaimDto claimdto) {
 		long claimForPolicyId = claimdto.getClaimForPolicyId();
 		Policy policy = policyRepository.findPolicyByPolicyId(claimForPolicyId);
-		
 		long userId = claimdto.getUserId();
-		User user = userRepository.findUserById(userId);
-		
-//		long adminId = claimdto.getAdminId();
-		//Admin admin = adminRepository.findAdminByAdminId(adminId);
-		
-		Claim requestClaim = new Claim();
-		//requestClaim.setAdmin(admin);
-		requestClaim.setPolicy(policy);
-		requestClaim.setUser(user);
-		requestClaim.setClaimStatus(false);
-		requestClaim.setClaimReason(claimdto.getClaimReason());
-		requestClaim.setClaimAmount(claimdto.getClaimAmount());
-		Claim claimData = policyRepository.claimPolicy(requestClaim);
-		if(claimData != null) {
-			return new ApiResponse(200, "Claim is registered", claimData);
+		System.out.println(userId);
+		System.out.println(claimdto.getClaimForPolicyId());
+		User user = policy.getUser();
+		long userId1=user.getUserId();
+		System.out.println(userId1);
+		//java.util.Date date=new java.util.Date();
+		LocalDate date1=LocalDate.now();
+		if(claimdto.getClaimAmount()>policy.getInsuranceAmount()) {
+			return new ApiResponse(400, "Claim amount is more than Vehicle IDV", null);
 		}
-		return new ApiResponse(400, "Failed to claim policy", null);
-	}
-
-
-	@Override
-	public ApiResponse findPolicyByUserId(long userId) {
-		// TODO Auto-generated method stub
-		List<Policy> policy=policyRepository.findPolicyByUserId(userId);
-		if(policy!= null)
-		{
-			return new ApiResponse(200,"Policy is Fetched",policy);
+		else if(policy.getPolicyEndDate().compareTo(date1)<0) {
+			return new ApiResponse(400, "policy Expired need to be renewed", null);
 		}
-		return new ApiResponse(400,"Policy can't be Fetched",null);
+		else if(userId1!=userId) {
+			return new ApiResponse(400, "you are not authorized to claim this policy", null);
+		}
+		else {
+			Claim requestClaim = new Claim();
+			//requestClaim.setAdmin(admin);
+			requestClaim.setPolicy(policy);
+			requestClaim.setUser(user);
+			requestClaim.setClaimStatus("pending From Admin");
+			requestClaim.setClaimReason(claimdto.getClaimReason());
+			requestClaim.setClaimAmount(claimdto.getClaimAmount());
+			Claim claimData = policyRepository.claimPolicy(requestClaim);
+			if(claimData != null) {
+				return new ApiResponse(200, "Claim is registered", claimData);
+			}
+			return new ApiResponse(400, "Failed to claim policy", null);
+		}
+		
+		
+		
 	}
 
 
@@ -130,5 +159,16 @@ public class PolicyServiceImpl implements PolicyService {
 		}
 		return new ApiResponse(400, "No policy existed", null);
 	}
+	@Override
+	public ApiResponse findPolicyByUserId(long userId) {
+		// TODO Auto-generated method stub
+		List<Policy>policy=policyRepository.findPolicyByUserId(userId);
+		if(policy!=null)
+		{
+			return new ApiResponse(200, "policy is existed", policy);
+		}
+		return new ApiResponse(400, "No policy existed", null); 
+	}
 
 }
+

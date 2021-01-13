@@ -14,7 +14,11 @@ import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.RenewDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
+
 import com.insurance.entities.User;
+
+import com.insurance.entities.Vehicle;
+
 
 @Repository
 public class PolicyRepositoryImpl implements PolicyRepository {
@@ -71,6 +75,12 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		query.setParameter("vehicleId", vehicleId);
 		return (Policy) query.getSingleResult();
 		
+	}
+
+	@Transactional
+	public Claim findClaimById(long claimId) {
+		return em.find(Claim.class, claimId);
+
 	}
 
 	

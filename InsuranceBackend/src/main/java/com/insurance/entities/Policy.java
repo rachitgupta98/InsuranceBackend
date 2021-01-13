@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +25,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
-@Table(name = "tbl_policyData")
+@Table(name = "tbl_policy_data")
 public class Policy {
 
 	@Id
@@ -143,7 +144,7 @@ public class Policy {
 	public void setInsuranceAmount(long insuranceAmount) {
 		this.insuranceAmount = insuranceAmount;
 	}
-
+	
 	public User getUser() {
 		return user;
 	}
@@ -151,7 +152,7 @@ public class Policy {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
+	
 	public Vehicle getVehicle() {
 		return vehicle;
 	}

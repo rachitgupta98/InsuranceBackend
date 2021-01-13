@@ -59,8 +59,6 @@ public class UserServiceImpl implements UserService {
 			return new ApiResponse(200,"SUCCESS",user);
 		else
 			return new ApiResponse(400, "FAILED", null);
-
-		
 	}
 
 	@Override
