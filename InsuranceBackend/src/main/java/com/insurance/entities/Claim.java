@@ -25,6 +25,7 @@ public class Claim {
 	String claimReason;
 	String claimStatus;
 	double claimAmount;
+	String documentFile;
 	long claimForPolicyNumber;
 
 	@ManyToOne
@@ -38,6 +39,14 @@ public class Claim {
 	@ManyToOne
 	@JoinColumn(name = "adminId")
 	Admin admin;
+	
+	public String getDocumentFile() {
+		return documentFile;
+	}
+
+	public void setDocumentFile(String documentFile) {
+		this.documentFile = documentFile;
+	}
 
 	public long getClaimId() {
 		return claimId;

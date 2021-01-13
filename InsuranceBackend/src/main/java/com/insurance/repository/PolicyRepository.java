@@ -13,5 +13,6 @@ public interface PolicyRepository {
 	public Claim claimPolicy(Claim claim);
 	public long renewPolicy(RenewDto renew);
 	public Policy findPolicyByPolicyNumber(long policyNumber);
+	public Claim findClaimById(long claimId);
 }
 

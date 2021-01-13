@@ -15,5 +15,7 @@ public interface PolicyService {
 	public ApiResponse claimPolicy(ClaimDto claimDto);
 	public ApiResponse renewPolicy(RenewDto renew);
 	public ApiResponse findPolicyByPolicyNumber(long policyNo);
+	public Claim findClaimById(long claimId);
+	public ApiResponse updateClaim(long claimId,String docFile);
 }
 

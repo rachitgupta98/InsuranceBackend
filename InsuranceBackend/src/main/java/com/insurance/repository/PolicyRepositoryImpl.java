@@ -34,7 +34,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		Claim newClaim=em.merge(claim);
 		return newClaim;
 	}
-	@Override
+	@Transactional
 	public Policy findPolicyByPolicyNumber(long policyNumber) {
 		// TODO Auto-generated method stub
 		System.out.println(policyNumber);
@@ -52,6 +52,11 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	public long renewPolicy(RenewDto renew) {
 		
 		return 0;
+	}
+
+	@Transactional
+	public Claim findClaimById(long claimId) {
+		return em.find(Claim.class, claimId);
 	}
 
 }

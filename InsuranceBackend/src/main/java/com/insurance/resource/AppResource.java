@@ -4,11 +4,13 @@
 
 package com.insurance.resource;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.ClaimDocumentDto;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
 import com.insurance.dto.PolicyDto;
@@ -71,6 +74,30 @@ public class AppResource {
 	public ApiResponse buyPolicy(@RequestBody PolicyDto policy) {
 
 		return policyService.buyPolicy(policy);
+	}
+	@PostMapping(value="/documentUpload")
+	public ApiResponse docUpload(@RequestBody ClaimDocumentDto claimDocumentDto) {
+		long claimId = claimDocumentDto.getClaimId();
+		String imgUploadLocation = "d:/LTI/training/ProjectImages/";
+		String uploadedFileName = claimDocumentDto.getDocFile().getOriginalFilename();
+		String newFileName = claimId + "-" + uploadedFileName;
+		String targetFileName = imgUploadLocation + newFileName;
+		try {
+			FileCopyUtils.copy(claimDocumentDto.getDocFile().getInputStream(), new FileOutputStream(targetFileName));
+		} catch(IOException e) {
+//			e.printStackTrace(); //hoping no error would occur
+//			Status status = new Status();
+//			status.setStatus(StatusType.FAILED);
+//			status.setMessage("File upload failed!");
+//			return status;
+		}
+		return policyService.updateClaim(claimId, newFileName);
+		
+//		customerService.updateProfilePic(customerId, newFileName);
+//		Status status = new Status();
+//		status.setStatus(StatusType.SUCCESS);
+//		status.setMessage("Profile pic updated!");
+//		return status;
 	}
 	
 	@GetMapping(value = "/insurance/findPolicy")

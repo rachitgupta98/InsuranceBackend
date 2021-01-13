@@ -33,13 +33,9 @@ public class PolicyServiceImpl implements PolicyService {
 
 	@Override
 	public ApiResponse claimPolicy(ClaimDto claimDto) {
-		//System.out.println(claimDto.getClaimForPolicyNumber());
 		ApiResponse api=findPolicyByPolicyNumber(claimDto.getClaimForPolicyNumber());
 		Policy policy=(Policy)api.getResult();
-		System.out.println(policy.getPolicyId());
-		//System.out.println(api.getResult());
-		//System.out.println(policy.getPlanType());
-		//Policy policy=findPolicyByPolicyNumber(12321);
+		
 		if(api.getResult()==null) {
 			System.out.println("policy not found");
 			ApiResponse apiResponse=new ApiResponse(404,"policy not found",null);
@@ -124,6 +120,21 @@ public class PolicyServiceImpl implements PolicyService {
 			return new ApiResponse(400, "No policy found", null);
 		}
 		return new ApiResponse(200, "Policy Data found", policyData);
+	}
+
+	@Override
+	public Claim findClaimById(long claimId) {
+		return policyRepository.findClaimById(claimId);
+		//return null;
+	}
+
+	@Override
+	public ApiResponse updateClaim(long claimId, String docFile) {
+		// TODO Auto-generated method stub
+		Claim claim=findClaimById(claimId);
+		claim.setDocumentFile(docFile);
+		Claim updatedClaim=policyRepository.claimPolicy(claim);
+		return new ApiResponse(200, "Doc File Uploaded Successfully", updatedClaim);
 	}
 
 }
