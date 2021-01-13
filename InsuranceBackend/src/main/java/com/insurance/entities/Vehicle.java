@@ -11,6 +11,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_vehicleData")
 public class Vehicle {
@@ -22,7 +24,7 @@ public class Vehicle {
 
 	String ownerName;
 	String registrationNo;
-	String registrationDate;
+	Date registrationDate;
 	String makerModel;
 	String chasisNo;
 	String engineNo;
@@ -30,6 +32,7 @@ public class Vehicle {
 	String vehicleClass;
 
 	@OneToOne(mappedBy = "vehicle", cascade = CascadeType.ALL)
+	@JsonIgnore
 	Policy policy;
 
 	public long getVehicleId() {
@@ -56,11 +59,13 @@ public class Vehicle {
 		this.registrationNo = registrationNo;
 	}
 
-	public String getRegistrationDate() {
+	
+
+	public Date getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(String registrationDate) {
+	public void setRegistrationDate(Date registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 

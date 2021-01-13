@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "tbl_adminData")
 public class Admin {
@@ -23,6 +25,7 @@ public class Admin {
 	String adminPassword;
 
 	@OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
+	@JsonIgnore
 	List<Claim> claim;
 
 	public long getAdminId() {
