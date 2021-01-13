@@ -65,4 +65,22 @@ public class UserServiceImpl implements UserService {
 		return null;
 	}
 
+
+	@Override
+	public ApiResponse findByEmail(String email) {
+		LoginDto loginDto=new LoginDto();
+		 User user = userRepository.findByEmail(loginDto.getUserEmail());
+	        System.out.println("in forgot api");
+	          if(user.getUserEmail().equals(loginDto.getUserEmail())) {
+	    
+	        	  return new ApiResponse(200, "SUCCESS", user) ;
+	          }
+	       
+	          return new ApiResponse(400, "FAILED", null) ;
+	}
+
+	
+
+	
+
 }

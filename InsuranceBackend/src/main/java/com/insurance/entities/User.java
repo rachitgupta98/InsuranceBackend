@@ -36,7 +36,9 @@ public class User {
 	int pinCode;
 	String userState;
 	String userCity;
-
+	
+	
+	
 	// One user will have Many Policies
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
 	List<Policy> policy;
@@ -146,5 +148,6 @@ public class User {
 	public void setPayment(List<Payment> payment) {
 		this.payment = payment;
 	}
+	
 
 }
