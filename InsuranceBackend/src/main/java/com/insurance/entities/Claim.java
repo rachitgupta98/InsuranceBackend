@@ -23,8 +23,12 @@ public class Claim {
 	long claimId;
 
 	String claimReason;
-	boolean claimStatus;
+	String claimStatus;
 	double claimAmount;
+
+	String documentFile;
+	long claimForPolicyNumber;
+
 
 	@ManyToOne
 	@JoinColumn(name = "userId")
@@ -39,6 +43,14 @@ public class Claim {
 	@ManyToOne
 	@JoinColumn(name = "adminId")
 	Admin admin;
+	
+	public String getDocumentFile() {
+		return documentFile;
+	}
+
+	public void setDocumentFile(String documentFile) {
+		this.documentFile = documentFile;
+	}
 
 	public long getClaimId() {
 		return claimId;
@@ -56,11 +68,11 @@ public class Claim {
 		this.claimReason = claimReason;
 	}
 
-	public boolean isClaimStatus() {
+	public String getClaimStatus() {
 		return claimStatus;
 	}
 
-	public void setClaimStatus(boolean claimStatus) {
+	public void setClaimStatus(String claimStatus) {
 		this.claimStatus = claimStatus;
 	}
 

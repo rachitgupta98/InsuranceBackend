@@ -1,5 +1,7 @@
 package com.insurance.repository;
 
+import java.util.List;
+
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.PolicyDto;
 import com.insurance.dto.RenewDto;
@@ -12,4 +14,7 @@ public interface PolicyRepository {
 	public Claim claimPolicy(Claim claim);
 	public long renewPolicy(RenewDto renew);
 	public Policy findPolicyByPolicyId(long policyId);
+	public Claim findClaimById(long claimId);
+	public Policy findPolicyByVehicleId(long vehicleId);
+	public List<Policy> findPolicyByUserId(long userId);
 }

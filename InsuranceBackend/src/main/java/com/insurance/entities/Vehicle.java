@@ -4,6 +4,7 @@ import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -51,6 +52,11 @@ public class Vehicle {
 		this.ownerName = ownerName;
 	}
 
+	
+
+	
+
+
 	public String getRegistrationNo() {
 		return registrationNo;
 	}
@@ -58,8 +64,6 @@ public class Vehicle {
 	public void setRegistrationNo(String registrationNo) {
 		this.registrationNo = registrationNo;
 	}
-
-	
 
 	public Date getRegistrationDate() {
 		return registrationDate;

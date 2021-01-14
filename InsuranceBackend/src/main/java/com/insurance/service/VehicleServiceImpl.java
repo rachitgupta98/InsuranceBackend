@@ -40,10 +40,16 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public ApiResponse findVehicleById(String registrationNumber) {
+	public ApiResponse findVehicleByRegNo(String registration) {
 		// TODO Auto-generated method stub
-		return null;
+		Vehicle storedVehicle = vehicleRepository.findVehicleByRegNo(registration);
+		if(storedVehicle != null) {
+			return new ApiResponse(200, "Vehicle data existed", storedVehicle);
+		}
+		return new ApiResponse(400, "No vehicle data is present", null);
 	}
+
+	
 
 	
 

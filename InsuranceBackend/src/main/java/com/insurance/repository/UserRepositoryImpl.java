@@ -35,20 +35,20 @@ public class UserRepositoryImpl implements UserRepository {
 		return users;
 	}
 
-	@Override
+	@Transactional
 	public User findUserById(long userId) {
 		User user = em.find(User.class, userId);
 		return user;
 	}
 
-	@Override
+	@Transactional
 	public User deleteUser(long userId) {
 		User user = em.find(User.class, userId);
 		em.remove(user);
 		return user;
 	}
 
-	@Override
+	@Transactional
 	public User findByEmail(String email) {
 		
 		String jpql="select e from User e where e.userEmail=:email";
