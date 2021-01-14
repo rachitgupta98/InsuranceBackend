@@ -57,7 +57,7 @@ AdminService adminService;
 	public ApiResponse docUpload(@PathVariable long claimId,@RequestParam("file") MultipartFile file) {
 		//long claimId = claimDocumentDto.getClaimId();
 		//System.out.println(claimDocumentDto.getDocFile().getOriginalFilename());
-		String imgUploadLocation = "d:/LTI/training/ProjectImages/";
+		String imgUploadLocation = "D:/CLaimImages/";
 		String uploadedFileName = file.getOriginalFilename();
 		String newFileName = claimId + "-" + uploadedFileName;
 		String targetFileName = imgUploadLocation + newFileName;
