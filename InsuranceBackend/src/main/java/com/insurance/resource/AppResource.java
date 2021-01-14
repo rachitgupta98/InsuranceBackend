@@ -137,7 +137,7 @@ AdminService adminService;
 	
 	@RequestMapping(value = "/insurance/findUser/{userId}")
 	public ApiResponse findUser(@PathVariable("userId") long userId) {
-		System.out.println("entering");
+		
 		return userService.findUserById(userId);
 	}
 	
