@@ -37,10 +37,12 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	@Transactional
 	public Policy findPolicyByPolicyId(long policyId) {
 		// TODO Auto-generated method stub
-		String jpql = "select p from Policy p where p.policyId=policyId";
-		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
+//		String jpql = "select p from Policy p where p.policyId=policyId";
+//		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
 		
-		return query.getSingleResult();
+		Policy policy = em.find(Policy.class,policyId);
+		
+		return policy;
 		
 	}
 	
