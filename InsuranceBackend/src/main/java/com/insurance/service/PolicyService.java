@@ -1,5 +1,6 @@
-
 package com.insurance.service;
+
+import java.util.List;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDto;
@@ -17,4 +18,5 @@ public interface PolicyService {
 	public ApiResponse updateClaim(long claimId,String docFile);
 	//public ApiResponse findPolicyByPolicyId(long policyNo);
 	public ApiResponse findPolicyByVehicleId(long vehicleId);
+	public ApiResponse findPolicyByUserId(long userId);
 }

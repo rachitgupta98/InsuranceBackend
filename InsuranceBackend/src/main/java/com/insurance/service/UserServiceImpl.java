@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
-import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.repository.UserRepository;
 
@@ -53,12 +52,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User findUserById(long userId) {
+	public ApiResponse findUserById(long userId) {
 		// TODO Auto-generated method stub
-
-
-		return userRepository.findUserById(userId);
-
+		User user=userRepository.findUserById(userId);
+		if(user!=null)
+			return new ApiResponse(200,"SUCCESS",user);
+		else
+			return new ApiResponse(400, "FAILED", null);
 	}
 
 	@Override

@@ -27,7 +27,6 @@ public class Claim {
 	double claimAmount;
 
 	String documentFile;
-	long claimForPolicyNumber;
 
 
 	@ManyToOne

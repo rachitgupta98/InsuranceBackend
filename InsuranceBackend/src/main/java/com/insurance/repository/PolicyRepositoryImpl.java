@@ -1,5 +1,6 @@
-
 package com.insurance.repository;
+
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,6 +14,11 @@ import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.RenewDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
+
+import com.insurance.entities.User;
+
+import com.insurance.entities.Vehicle;
+
 
 @Repository
 public class PolicyRepositoryImpl implements PolicyRepository {
@@ -31,22 +37,32 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	@Transactional
 	public Policy findPolicyByPolicyId(long policyId) {
 		// TODO Auto-generated method stub
-		return em.find(Policy.class, policyId);
+//		String jpql = "select p from Policy p where p.policyId=policyId";
+//		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
+		
+		Policy policy = em.find(Policy.class,policyId);
+		
+		return policy;
 		
 	}
+	
 	@Transactional
-	public Claim findClaimById(long claimId) {
-		return em.find(Claim.class, claimId);
+	public List<Policy> findPolicyByUserId(long userId)
+	{
+		String jpql="select p from Policy p where p.user.userId=:userId";
+		Query query = em.createQuery(jpql);
+		query.setParameter("userId", userId);
+		List<Policy> policy=query.getResultList();
+		return policy;
+		
 	}
-
-	@Override
 	@Transactional
 	public Policy buyPolicy(Policy policy) {
 		Policy policyData = em.merge(policy);
 		return policyData;
 	}
 
-	@Override
+	
 	@Transactional
 	public Claim claimPolicy(Claim claim) {
 		Claim claimData = em.merge(claim);
@@ -61,6 +77,12 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		query.setParameter("vehicleId", vehicleId);
 		return (Policy) query.getSingleResult();
 		
+	}
+
+	@Transactional
+	public Claim findClaimById(long claimId) {
+		return em.find(Claim.class, claimId);
+
 	}
 
 	

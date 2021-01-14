@@ -1,8 +1,8 @@
-
 package com.insurance.service;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -130,5 +130,16 @@ public class PolicyServiceImpl implements PolicyService {
 		}
 		return new ApiResponse(400, "No policy existed", null);
 	}
+	@Override
+	public ApiResponse findPolicyByUserId(long userId) {
+		// TODO Auto-generated method stub
+		List<Policy>policy=policyRepository.findPolicyByUserId(userId);
+		if(policy!=null)
+		{
+			return new ApiResponse(200, "policy is existed", policy);
+		}
+		return new ApiResponse(400, "No policy existed", null); 
+	}
 
 }
+

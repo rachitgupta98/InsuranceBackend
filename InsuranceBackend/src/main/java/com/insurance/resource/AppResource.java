@@ -1,4 +1,3 @@
-
 package com.insurance.resource;
 
 import java.io.FileOutputStream;
@@ -54,7 +53,7 @@ AdminService adminService;
 	public ApiResponse docUpload(@PathVariable long claimId,@RequestParam("file") MultipartFile file) {
 		//long claimId = claimDocumentDto.getClaimId();
 		//System.out.println(claimDocumentDto.getDocFile().getOriginalFilename());
-		String imgUploadLocation = "d:/LTI/training/ProjectImages/";
+		String imgUploadLocation = "D:/CLaimImages/";
 		String uploadedFileName = file.getOriginalFilename();
 		String newFileName = claimId + "-" + uploadedFileName;
 		String targetFileName = imgUploadLocation + newFileName;
@@ -135,4 +134,17 @@ AdminService adminService;
 	public ApiResponse findVehicleByRegNo(@RequestParam String regist) {
 		return vehicleService.findVehicleByRegNo(regist);
 	}
+	
+	@RequestMapping(value = "/insurance/findUser/{userId}")
+	public ApiResponse findUser(@PathVariable("userId") long userId) {
+		System.out.println("entering");
+		return userService.findUserById(userId);
+	}
+	
+	@RequestMapping(value="/insurance/policies/{userId}")
+	public ApiResponse findPolicybyuserId(@PathVariable("userId") long userId)
+	{
+		return policyService.findPolicyByUserId(userId);
+	}
 }
+
