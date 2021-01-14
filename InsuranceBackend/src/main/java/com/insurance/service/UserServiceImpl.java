@@ -66,5 +66,25 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public ApiResponse updatePassword(String email, String newPassword) {
+	       
+		  User user=userRepository.findByEmail(email);
+	        user.setUserPassword(newPassword);
+	       userRepository.save(user);
+	       return new ApiResponse(200, "UPDATED", user) ;
+	    }
+
+
+	@Override
+	public ApiResponse findByEmail(String email) {
+		// TODO Auto-generated method stub
+		User user=userRepository.findByEmail(email);
+		if(user!=null)
+		{
+			return new ApiResponse(200, "User Fetched", user) ;
+		}
+		return new ApiResponse(404,"No user found",null);
+	}
 
 }

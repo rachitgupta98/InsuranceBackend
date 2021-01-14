@@ -1,7 +1,7 @@
 package com.insurance.repository;
 
 import java.util.List;
-
+import org.hibernate.Session;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -46,14 +46,22 @@ public class UserRepositoryImpl implements UserRepository {
 		return user;
 	}
 
+	
 	@Transactional
 	public User findByEmail(String email) {
+		
 		String jpql="select e from User e where e.userEmail=:email";
 		Query query = em.createQuery(jpql);
 		query.setParameter("email", email);
 		User user=(User) query.getSingleResult();
 		System.out.println("user logged in");
 		return user;
-	}
+		}
+
+	 public User save(User user) {
+	        Session session = em.unwrap(Session.class);
+	        session.persist(user);
+	        return user;
+	    }
 
 }

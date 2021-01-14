@@ -11,6 +11,7 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Repository;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.ClaimDto;
 import com.insurance.dto.RenewDto;
 import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
@@ -81,6 +82,15 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	public Claim findClaimById(long claimId) {
 		return em.find(Claim.class, claimId);
 
+	}
+
+	@Override
+	public List<ClaimDto> findClaimsbyUserId(long userId) {
+		String jpql="select c from Claim c where c.user.userId=:userId";
+		Query query = em.createQuery(jpql);
+		query.setParameter("userId", userId);
+		List<ClaimDto> claims=query.getResultList();
+		return claims;
 	}
 
 	

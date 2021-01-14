@@ -30,12 +30,16 @@ import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
 import com.insurance.service.AdminService;
+import com.insurance.service.EmailService;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
 
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class AppResource {
+	
+	@Autowired
+	EmailService emailService;
 
 	@Autowired
 	VehicleService vehicleService;
@@ -145,6 +149,36 @@ AdminService adminService;
 	public ApiResponse findPolicybyuserId(@PathVariable("userId") long userId)
 	{
 		return policyService.findPolicyByUserId(userId);
+	}
+	@RequestMapping(value="/insurance/claims/{userId}")
+	public ApiResponse findClaimsbyuserId(@PathVariable("userId") long userId)
+	{
+		return policyService.findPolicyByUserId(userId);
+	}
+	
+	@RequestMapping(value="/forgotPassword",method=RequestMethod.POST)
+	public ApiResponse forgotPassword(@RequestBody User user){
+		    
+	       
+			String subject="Here's the link to reset your password";
+			String email = user.getUserEmail();
+			String text="<p>Hello,</p>"
+		            + "<p>You have requested to reset your password.</p>"
+		            + "<p>Click the link below to change your password:</p>"
+		            + "<p><a href=\"" +"\resetPassword"+ "\">Change my password</a></p>"
+		            + "<br>"
+		            + "<p>Ignore this email if you do remember your password, "
+		            + "or you have not made the request.</p>";
+			emailService.sendEmail(email, text, subject);
+			System.out.println("Email Sent.....");
+			return userService.findByEmail(email);
+		
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ApiResponse resetPassword(@RequestParam String email ,String password) {
+		
+	  return  userService.updatePassword(email, password);
 	}
 }
 

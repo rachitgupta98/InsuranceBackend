@@ -169,6 +169,16 @@ public class PolicyServiceImpl implements PolicyService {
 		}
 		return new ApiResponse(400, "No policy existed", null); 
 	}
+	@Override
+	public ApiResponse findClaimsbyUserId(long userId) {
+		// TODO Auto-generated method stub
+		List<ClaimDto> claims=policyRepository.findClaimsbyUserId(userId);
+		if(claims!=null)
+		{
+			return new ApiResponse(200, "claims fetched", claims);
+		}
+		return new ApiResponse(400, "No policy claimed", null); 
+	}
 
 }
 
