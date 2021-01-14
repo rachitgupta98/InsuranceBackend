@@ -1,5 +1,6 @@
 package com.insurance.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -52,8 +53,19 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		String jpql="select p from Policy p where p.user.userId=:userId";
 		Query query = em.createQuery(jpql);
 		query.setParameter("userId", userId);
-		List<Policy> policy=query.getResultList();
-		return policy;
+		List<Policy> policies=query.getResultList();
+		for(Policy policy:policies) {
+			LocalDate date=LocalDate.now();
+			if(date.compareTo(policy.getPolicyEndDate())>0) {
+				policy.setExpired(true);
+				em.merge(policy);
+			}
+		}
+		jpql="select p from Policy p where p.user.userId=:userId";
+		query = em.createQuery(jpql);
+		query.setParameter("userId", userId);
+		List<Policy> updatedpolicies=query.getResultList();
+		return updatedpolicies;
 		
 	}
 	@Transactional
