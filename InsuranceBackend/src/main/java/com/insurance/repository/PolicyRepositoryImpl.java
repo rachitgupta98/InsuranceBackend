@@ -1,5 +1,7 @@
+
 package com.insurance.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -40,10 +42,13 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		// TODO Auto-generated method stub
 //		String jpql = "select p from Policy p where p.policyId=policyId";
 //		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
-		
+		try {
 		Policy policy = em.find(Policy.class,policyId);
 		
-		return policy;
+		return policy;}
+		catch(NullPointerException nre) {
+			return null;
+		}
 		
 	}
 	
@@ -53,8 +58,19 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		String jpql="select p from Policy p where p.user.userId=:userId";
 		Query query = em.createQuery(jpql);
 		query.setParameter("userId", userId);
-		List<Policy> policy=query.getResultList();
-		return policy;
+		List<Policy> policies=query.getResultList();
+		for(Policy policy:policies) {
+			LocalDate date=LocalDate.now();
+			if(date.compareTo(policy.getPolicyEndDate())>0) {
+				policy.setExpired(true);
+				em.merge(policy);
+			}
+		}
+		jpql="select p from Policy p where p.user.userId=:userId";
+		query = em.createQuery(jpql);
+		query.setParameter("userId", userId);
+		List<Policy> updatedpolicies=query.getResultList();
+		return updatedpolicies;
 		
 	}
 	@Transactional
@@ -98,3 +114,4 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 	
 
 }
+

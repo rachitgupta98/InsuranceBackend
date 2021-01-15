@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.ResetPasswordDto;
 import com.insurance.entities.User;
 
 public interface UserService {

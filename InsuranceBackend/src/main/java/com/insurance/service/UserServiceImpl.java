@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.ResetPasswordDto;
 import com.insurance.entities.User;
 import com.insurance.repository.UserRepository;
 
@@ -35,11 +36,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
     public ApiResponse login(LoginDto loginDto) {
+		
         User user = userRepository.findByEmail(loginDto.getUserEmail());
+        System.out.println("in login api");
           if(user.getUserPassword().equals(loginDto.getUserPassword())) {
+    
         	  return new ApiResponse(200, "SUCCESS", user) ;
           }
-        
+       
           return new ApiResponse(400, "FAILED", null) ;
         
      
@@ -86,5 +90,34 @@ public class UserServiceImpl implements UserService {
 		}
 		return new ApiResponse(404,"No user found",null);
 	}
+
+
+	
+	@Override
+	public ApiResponse findUserByEmail(String userEmail) {
+		LoginDto loginDto=new LoginDto();
+		 User user = userRepository.findByEmail(loginDto.getUserEmail());
+	     
+	          if(user.getUserEmail().equals(loginDto.getUserEmail())) {
+	    
+	        	  return new ApiResponse(200, "SUCCESS", user) ;
+	          }
+	       
+	          return new ApiResponse(400, "FAILED", null) ;
+	}
+
+
+
+	 public ApiResponse updatePassword(ResetPasswordDto resetPasswordDto) {
+	       
+		  User user=userRepository.findByEmail(resetPasswordDto.getUserEmail());
+	        user.setUserPassword(resetPasswordDto.getUserPassword());
+	       userRepository.save(user);
+	       return new ApiResponse(200, "UPDATED", user) ;
+	    }
+
+	
+
+	
 
 }

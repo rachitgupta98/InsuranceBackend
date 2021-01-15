@@ -1,7 +1,7 @@
 package com.insurance.repository;
 
 import java.util.List;
-import org.hibernate.Session;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;

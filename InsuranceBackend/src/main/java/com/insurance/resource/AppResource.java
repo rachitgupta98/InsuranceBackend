@@ -24,6 +24,7 @@ import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
 import com.insurance.dto.PolicyDto;
 import com.insurance.dto.RenewDto;
+import com.insurance.dto.ResetPasswordDto;
 import com.insurance.service.VehicleService;
 import com.insurance.entities.Admin;
 import com.insurance.entities.Policy;

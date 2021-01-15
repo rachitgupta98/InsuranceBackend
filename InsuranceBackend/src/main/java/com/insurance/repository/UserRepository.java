@@ -13,5 +13,4 @@ public interface UserRepository {
 	public User deleteUser(long userId);
     public User findByEmail(String email);
     public User save(User user);
-
 }
