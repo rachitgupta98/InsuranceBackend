@@ -40,10 +40,13 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		// TODO Auto-generated method stub
 //		String jpql = "select p from Policy p where p.policyId=policyId";
 //		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
-		
+		try {
 		Policy policy = em.find(Policy.class,policyId);
 		
-		return policy;
+		return policy;}
+		catch(NullPointerException nre) {
+			return null;
+		}
 		
 	}
 	

@@ -115,8 +115,8 @@ AdminService adminService;
 		return policyService.claimPolicy(claimdto);
 	}
 	@GetMapping(value="/insurance/renewPolicy")
-	public ApiResponse renewPolicy(@RequestParam long policyId) {
-		return policyService.renewPolicy(policyId);
+	public ApiResponse renewPolicy(@RequestParam long policyId,@RequestParam long userId) {
+		return policyService.renewPolicy(policyId,userId);
 	}
 	
 	@PostMapping(value = "/insurance/addAdmin")
@@ -135,13 +135,13 @@ AdminService adminService;
 		return vehicleService.findVehicleByRegNo(regist);
 	}
 	
-	@RequestMapping(value = "/insurance/findUser/{userId}")
+	@RequestMapping(value = "/insurance/findUser/{userId}",method = RequestMethod.GET)
 	public ApiResponse findUser(@PathVariable("userId") long userId) {
 		System.out.println("entering");
 		return userService.findUserById(userId);
 	}
 	
-	@RequestMapping(value="/insurance/policies/{userId}")
+	@RequestMapping(value="/insurance/policies/{userId}",method=RequestMethod.GET)
 	public ApiResponse findPolicybyuserId(@PathVariable("userId") long userId)
 	{
 		return policyService.findPolicyByUserId(userId);

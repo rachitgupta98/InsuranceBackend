@@ -23,7 +23,7 @@ public class Claim {
 	long claimId;
 
 	String claimReason;
-	String claimStatus;
+	boolean claimStatus;
 	double claimAmount;
 
 	String documentFile;
@@ -67,11 +67,11 @@ public class Claim {
 		this.claimReason = claimReason;
 	}
 
-	public String getClaimStatus() {
+	public boolean getClaimStatus() {
 		return claimStatus;
 	}
 
-	public void setClaimStatus(String claimStatus) {
+	public void setClaimStatus(boolean claimStatus) {
 		this.claimStatus = claimStatus;
 	}
 
