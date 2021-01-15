@@ -22,6 +22,7 @@ import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDocumentDto;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.PaymentDto;
 import com.insurance.dto.PolicyDto;
 import com.insurance.dto.RenewDto;
 import com.insurance.dto.ResetPasswordDto;
