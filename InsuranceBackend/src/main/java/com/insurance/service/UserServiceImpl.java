@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.ResetPasswordDto;
 import com.insurance.entities.User;
 import com.insurance.repository.UserRepository;
 
@@ -87,10 +88,10 @@ public class UserServiceImpl implements UserService {
 
 
 
-	 public ApiResponse updatePassword(String email, String newPassword) {
+	 public ApiResponse updatePassword(ResetPasswordDto resetPasswordDto) {
 	       
-		  User user=userRepository.findByEmail(email);
-	        user.setUserPassword(newPassword);
+		  User user=userRepository.findByEmail(resetPasswordDto.getUserEmail());
+	        user.setUserPassword(resetPasswordDto.getUserPassword());
 	       userRepository.save(user);
 	       return new ApiResponse(200, "UPDATED", user) ;
 	    }

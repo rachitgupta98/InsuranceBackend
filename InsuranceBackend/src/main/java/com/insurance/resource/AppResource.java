@@ -21,6 +21,7 @@ import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
 
 import com.insurance.dto.PolicyDto;
+import com.insurance.dto.ResetPasswordDto;
 import com.insurance.service.VehicleService;
 
 
@@ -105,13 +106,12 @@ public class AppResource {
 	       
 			String subject="Here's the link to reset your password";
 			String email = user.getUserEmail();
-			String text="<p>Hello,</p>"
-		            + "<p>You have requested to reset your password.</p>"
-		            + "<p>Click the link below to change your password:</p>"
-		            + "<p><a href=\"" +"\resetPassword"+ "\">Change my password</a></p>"
-		            + "<br>"
-		            + "<p>Ignore this email if you do remember your password, "
-		            + "or you have not made the request.</p>";
+			String text="Hello,"
+		            + "You have requested to reset your password."
+		            + "Click the link to change your password:"
+		            + "link=\"" +"http://localhost:4200/resetpassword"+ "\"Change my password";
+		           
+		           
 			emailService.sendEmail(email, text, subject);
 			System.out.println("Email Sent.....");
 			return userService.findUserByEmail(email);
@@ -119,16 +119,12 @@ public class AppResource {
 	}
 	
 	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	public ApiResponse resetPassword(@RequestParam String email ,String password) {
+	public ApiResponse resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
 		
-	  return  userService.updatePassword(email, password);
+	  return  userService.updatePassword( resetPasswordDto);
 	}
 
 
-	
-
-	
-	
 	@GetMapping(value="/insurance/findPolicyByVehicleId")
 	public ApiResponse findPolicyByVehicleId(@RequestParam long vehicleId) {
 		return policyService.findPolicyByVehicleId(vehicleId);

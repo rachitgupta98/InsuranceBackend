@@ -3,6 +3,7 @@ package com.insurance.repository;
 import java.util.List;
 
 
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -11,7 +12,7 @@ import javax.transaction.Transactional;
 import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
 
-import com.insurance.apiResponse.ApiResponse;
+
 import com.insurance.entities.User;
 
 @Repository
@@ -58,7 +59,8 @@ public class UserRepositoryImpl implements UserRepository {
 		System.out.println("user logged in");
 		return user;
 		}
-
+     
+	@Transactional
 	 public User save(User user) {
 	        Session session = em.unwrap(Session.class);
 	        session.persist(user);

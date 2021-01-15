@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.ResetPasswordDto;
 import com.insurance.entities.User;
 
 public interface UserService {
@@ -14,7 +15,7 @@ public interface UserService {
 	public ApiResponse deleteUser(long userId);
 	public ApiResponse login(LoginDto loginDto);
 	public ApiResponse findUserByEmail(String userEmail);
-	public ApiResponse updatePassword(String email,String password);
+	public ApiResponse updatePassword(ResetPasswordDto resetPasswordDto);
    
     
 }
