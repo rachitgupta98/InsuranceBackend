@@ -120,8 +120,8 @@ AdminService adminService;
 		return policyService.claimPolicy(claimdto);
 	}
 	@GetMapping(value="/insurance/renewPolicy")
-	public ApiResponse renewPolicy(@RequestParam long policyId) {
-		return policyService.renewPolicy(policyId);
+	public ApiResponse renewPolicy(@RequestParam long policyId,@RequestParam long userId) {
+		return policyService.renewPolicy(policyId,userId);
 	}
 	
 	@PostMapping(value = "/insurance/addAdmin")
