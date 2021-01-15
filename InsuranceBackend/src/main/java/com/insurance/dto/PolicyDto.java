@@ -15,8 +15,16 @@ public class PolicyDto {
 	long insuranceAmount;
 	long vehicleId;
 	int planYear;
+	long policyId;
 	
 	
+	
+	public long getPolicyId() {
+		return policyId;
+	}
+	public void setPolicyId(long policyId) {
+		this.policyId = policyId;
+	}
 	public int getPlanYear() {
 		return planYear;
 	}
