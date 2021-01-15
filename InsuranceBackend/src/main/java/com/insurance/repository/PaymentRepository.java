@@ -7,7 +7,7 @@ import com.insurance.entities.Payment;
 
 public interface PaymentRepository {
 
-	public long pay(Payment payment);
+	public Payment pay(Payment payment);
 	public List<Payment> viewAllPayments();
 	public Payment findPaymentByPaymentId(long paymentId);
 	public Payment findPaymentByPolicyId(long policyId);

@@ -22,6 +22,7 @@ import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.ClaimDocumentDto;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
+import com.insurance.dto.PaymentDto;
 import com.insurance.dto.PolicyDto;
 import com.insurance.dto.RenewDto;
 import com.insurance.service.VehicleService;
@@ -30,6 +31,7 @@ import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
 import com.insurance.service.AdminService;
+import com.insurance.service.PaymentService;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
 
@@ -43,11 +45,14 @@ public class AppResource {
 	@Autowired
 	PolicyService policyService;
 
-@Autowired
-AdminService adminService;
+	@Autowired
+	AdminService adminService;
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	PaymentService paymentService;
 	
 	@PostMapping(value="/documentUpload/{claimId}")
 	public ApiResponse docUpload(@PathVariable long claimId,@RequestParam("file") MultipartFile file) {
@@ -145,6 +150,12 @@ AdminService adminService;
 	public ApiResponse findPolicybyuserId(@PathVariable("userId") long userId)
 	{
 		return policyService.findPolicyByUserId(userId);
+	}
+	
+	@PostMapping(value="/insurance/policy/payment")
+	public ApiResponse PolicyPayment(@RequestBody PaymentDto payDto) {
+		
+		return paymentService.pay(payDto);
 	}
 }
 
