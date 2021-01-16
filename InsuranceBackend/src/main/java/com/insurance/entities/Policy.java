@@ -59,9 +59,9 @@ public class Policy {
 	@OneToMany(mappedBy = "policy",cascade = CascadeType.ALL)
 	List<Claim> claims;
 
-	@OneToOne(mappedBy = "policy", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "policy", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 	@JsonIgnore
-	Payment payment;
+	List<Payment>payments;
 
 	public long getPolicyId() {
 		return policyId;
@@ -171,12 +171,12 @@ public class Policy {
 		this.claims = claims;
 	}
 
-	public Payment getPayment() {
-		return payment;
+	public List<Payment> getPayments() {
+		return payments;
 	}
 
-	public void setPayment(Payment payment) {
-		this.payment = payment;
+	public void setPayments(List<Payment> payments) {
+		this.payments = payments;
 	}
 
 }
