@@ -1,6 +1,8 @@
 package com.insurance.repository;
 
 import java.util.List;
+import java.time.LocalDate;
+import java.time.Month;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,10 +29,10 @@ public class UserRepositoryImpl implements UserRepository {
 	}
 
 	@Transactional
-	public List<User> viewAllUsers() {
-		String jpql = "select u from tbl_userData u";
+	public long viewAllUsers() {
+		String jpql = "select COUNT(*) from User u";
 		Query query = em.createQuery(jpql);
-		List<User> users = query.getResultList();
+		long users = (long) query.getSingleResult();
 		return users;
 	}
 

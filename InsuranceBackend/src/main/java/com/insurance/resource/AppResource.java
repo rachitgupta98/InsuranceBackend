@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.AdminDto;
 import com.insurance.dto.ClaimDocumentDto;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
@@ -59,7 +60,7 @@ AdminService adminService;
 	public ApiResponse docUpload(@PathVariable long claimId,@RequestParam("file") MultipartFile file) {
 		//long claimId = claimDocumentDto.getClaimId();
 		//System.out.println(claimDocumentDto.getDocFile().getOriginalFilename());
-		String imgUploadLocation = "D:/CLaimImages/";
+		String imgUploadLocation = "G:/LTI/backendData/";
 		String uploadedFileName = file.getOriginalFilename();
 		String newFileName = claimId + "-" + uploadedFileName;
 		String targetFileName = imgUploadLocation + newFileName;
@@ -181,6 +182,40 @@ AdminService adminService;
 	public ApiResponse resetPassword(@RequestParam String email ,String password) {
 		
 	  return  userService.updatePassword(email, password);
+	}
+	
+	@RequestMapping(value="/totalpolicies",method=RequestMethod.GET)
+	public ApiResponse countofPolicies()
+	{
+		return adminService.countOfpolicies();
+	}
+	
+	@RequestMapping(value="/totalclaims",method=RequestMethod.GET)
+	public ApiResponse countofclaims()
+	{
+		return adminService.countOfclaimes();
+	}
+	@RequestMapping(value="/viewClaims",method=RequestMethod.GET)
+	public ApiResponse viewClaims()
+	{
+		return adminService.viewAllClaims();
+	}
+	
+	@RequestMapping(value="/viewUsers",method=RequestMethod.GET)
+	public ApiResponse viewAllusers()
+	{
+		return userService.viewAllUsers();
+	}
+	@RequestMapping(value="/existingPolicies",method=RequestMethod.GET)
+	public ApiResponse existingpolicyCount()
+	{
+		return adminService.findexistingPolicies();
+	}
+	
+	@RequestMapping(value="/adminlogin",method=RequestMethod.POST)
+	public ApiResponse adminlogin(@RequestBody AdminDto admindto)
+	{
+		return adminService.findadminByEmail(admindto);
 	}
 }
 

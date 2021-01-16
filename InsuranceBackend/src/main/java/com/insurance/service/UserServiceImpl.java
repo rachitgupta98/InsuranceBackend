@@ -52,7 +52,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApiResponse viewAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		long users= userRepository.viewAllUsers();
+		if(users!=0)
+		{
+			return new ApiResponse(200, "SUCCESS", users) ;
+		}
+		return new ApiResponse(400, "FAILED", null) ;
 	}
 
 	@Override
