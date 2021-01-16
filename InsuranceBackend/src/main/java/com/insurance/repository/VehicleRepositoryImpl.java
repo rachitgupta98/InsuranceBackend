@@ -1,9 +1,7 @@
 package com.insurance.repository;
 
-import java.io.IOException;
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -14,7 +12,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Repository;
 
-import com.insurance.dto.VehicleDto;
 import com.insurance.entities.Vehicle;
 import com.insurance.model.VehicleModel;
 

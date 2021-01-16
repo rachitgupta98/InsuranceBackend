@@ -60,7 +60,7 @@ public class Policy {
 	List<Claim> claims;
 
 	@OneToOne(mappedBy = "policy", cascade = CascadeType.ALL)
-	//@JsonIgnore
+	@JsonIgnore
 	Payment payment;
 
 	public long getPolicyId() {

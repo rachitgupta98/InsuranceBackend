@@ -20,7 +20,6 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@PersistenceContext
 	EntityManager em;
-
 	@Transactional
 	public long signUpUser(User user) {
 		User registerd_user = em.merge(user);

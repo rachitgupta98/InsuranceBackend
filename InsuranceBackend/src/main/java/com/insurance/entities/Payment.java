@@ -32,7 +32,7 @@ public class Payment {
 	@JsonIgnore
 	User user;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "policyId")
 	@JsonIgnore
 	Policy policy;

@@ -42,6 +42,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 //		String jpql = "select p from Policy p where p.policyId=policyId";
 //		TypedQuery<Policy> query = em.createQuery(jpql, Policy.class);
 		try {
+			System.out.println(policyId);
 		Policy policy = em.find(Policy.class,policyId);
 		
 		return policy;}

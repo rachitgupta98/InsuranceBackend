@@ -1,18 +1,10 @@
 package com.insurance.service;
 
-import java.io.IOException;
-import java.util.Map;
 
-import org.jsoup.Connection;
-import org.jsoup.Jsoup;
-import org.jsoup.Connection.Method;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
-import com.insurance.dto.VehicleDto;
 import com.insurance.entities.Vehicle;
 import com.insurance.repository.VehicleRepository;
 
