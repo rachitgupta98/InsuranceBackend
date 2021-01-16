@@ -105,8 +105,9 @@ AdminService adminService;
 		policy.setPurchaseDate(LocalDate.now());
 		policy.setPolicyStartDate(LocalDate.now());
 		policy.setPolicyEndDate(LocalDate.now().plusYears(policy.getPlanYear()));
-		System.out.println(policy.getPolicyStartDate());
-		System.out.println(policy.getPolicyEndDate());
+		//System.out.println(policy.getPolicyStartDate());
+		//System.out.println(policy.getPolicyEndDate());
+		System.out.println(policy.getPolicyId());
 		return policyService.buyPolicy(policy);
 	}
 	

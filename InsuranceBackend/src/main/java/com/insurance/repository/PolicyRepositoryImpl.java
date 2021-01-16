@@ -111,6 +111,16 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 		return claims;
 	}
 
+	@Override
+	@Transactional
+	public void deletePolicyById(long policyId) {
+		System.out.println(policyId);
+		Policy policy=em.find(Policy.class, policyId);
+		System.out.println(policy);
+		em.remove(policy);
+		
+	}
+
 	
 
 }

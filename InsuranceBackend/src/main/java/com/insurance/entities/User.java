@@ -53,6 +53,7 @@ public class User {
 	// one user can do many premium payments for Policies
 
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//	@JsonIgnore
 	List<Payment> payment;
 
 	public long getUserId() {

@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-import com.insurance.dto.VehicleDto;
 import com.insurance.entities.Vehicle;
 import com.insurance.model.VehicleModel;
 

@@ -19,4 +19,5 @@ public interface PolicyRepository {
 	public Policy findPolicyByVehicleId(long vehicleId);
 	public List<Policy> findPolicyByUserId(long userId);
 	public List<ClaimDto> findClaimsbyUserId(long userId);
+	public void deletePolicyById(long policyId);
 }

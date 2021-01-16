@@ -1,5 +1,6 @@
 package com.insurance.entities;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -25,8 +26,9 @@ public class Vehicle {
 
 	String ownerName;
 	String registrationNo;
-	Date registrationDate;
-	String makerModel;
+	LocalDate registrationDate;
+	String manufacturer;
+	String model;
 	String chasisNo;
 	String engineNo;
 	String fuelType;
@@ -65,20 +67,31 @@ public class Vehicle {
 		this.registrationNo = registrationNo;
 	}
 
-	public Date getRegistrationDate() {
+
+	
+
+	public LocalDate getRegistrationDate() {
 		return registrationDate;
 	}
 
-	public void setRegistrationDate(Date registrationDate) {
+	public void setRegistrationDate(LocalDate registrationDate) {
 		this.registrationDate = registrationDate;
 	}
 
-	public String getMakerModel() {
-		return makerModel;
+	public String getManufacturer() {
+		return manufacturer;
 	}
 
-	public void setMakerModel(String makerModel) {
-		this.makerModel = makerModel;
+	public void setManufacturer(String manufacturer) {
+		this.manufacturer = manufacturer;
+	}
+
+	public String getModel() {
+		return model;
+	}
+
+	public void setModel(String model) {
+		this.model = model;
 	}
 
 	public String getChasisNo() {

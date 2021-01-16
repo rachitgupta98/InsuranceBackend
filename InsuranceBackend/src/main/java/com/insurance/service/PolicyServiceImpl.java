@@ -45,44 +45,28 @@ public class PolicyServiceImpl implements PolicyService {
 
 		long vehicleId = policy.getVehicleId();
 		Vehicle vehicle = vehcileRepository.findVehicleByVehicleId(vehicleId);
-		if (policy.getPolicyId() != 0) {
-			Policy newpolicy = policyRepository.findPolicyByPolicyId(policy.getPolicyId());
-			newpolicy.setUser(user);
-			newpolicy.setVehicle(vehicle);
-			newpolicy.setPlanType(policy.getPlanType());
-			newpolicy.setPolicyStartDate(policy.getPolicyStartDate());
-			newpolicy.setPolicyEndDate(policy.getPolicyEndDate());
-			newpolicy.setPremiumAmount(policy.getPremiumAmount());
-			newpolicy.setPurchaseDate(policy.getPurchaseDate());
-			newpolicy.setExpired(policy.isExpired());
-			newpolicy.setInsuranceAmount(policy.getInsuranceAmount());
-			newpolicy.setPlanYear(policy.getPlanYear());
-			Policy generatedPolicy = policyRepository.buyPolicy(newpolicy);
 
-			if (generatedPolicy != null) {
-				return new ApiResponse(200, "Policy data is saved", generatedPolicy);
-			}
-			return new ApiResponse(400, "Policy data is not saved", null);
-		} else {
-			Policy newpolicy = new Policy();
-			// newpolicy.setPolicyId(policy.getPolicyId());
-			newpolicy.setUser(user);
-			newpolicy.setVehicle(vehicle);
-			newpolicy.setPlanType(policy.getPlanType());
-			newpolicy.setPolicyStartDate(policy.getPolicyStartDate());
-			newpolicy.setPolicyEndDate(policy.getPolicyEndDate());
-			newpolicy.setPremiumAmount(policy.getPremiumAmount());
-			newpolicy.setPurchaseDate(policy.getPurchaseDate());
-			newpolicy.setExpired(policy.isExpired());
-			newpolicy.setInsuranceAmount(policy.getInsuranceAmount());
-			newpolicy.setPlanYear(policy.getPlanYear());
-			Policy generatedPolicy = policyRepository.buyPolicy(newpolicy);
-
-			if (generatedPolicy != null) {
-				return new ApiResponse(200, "Policy data is saved", generatedPolicy);
-			}
-			return new ApiResponse(400, "Policy data is not saved", null);
+		Policy newpolicy = new Policy();
+		if (policy.getPolicyId() > 0) {
+			newpolicy.setPolicyId(policy.getPolicyId());
 		}
+		// newpolicy.setPolicyId(policy.getPolicyId());
+		newpolicy.setUser(user);
+		newpolicy.setVehicle(vehicle);
+		newpolicy.setPlanType(policy.getPlanType());
+		newpolicy.setPolicyStartDate(policy.getPolicyStartDate());
+		newpolicy.setPolicyEndDate(policy.getPolicyEndDate());
+		newpolicy.setPremiumAmount(policy.getPremiumAmount());
+		newpolicy.setPurchaseDate(policy.getPurchaseDate());
+		newpolicy.setExpired(policy.isExpired());
+		newpolicy.setInsuranceAmount(policy.getInsuranceAmount());
+		newpolicy.setPlanYear(policy.getPlanYear());
+		Policy generatedPolicy = policyRepository.buyPolicy(newpolicy);
+
+		if (generatedPolicy != null) {
+			return new ApiResponse(200, "Policy data is saved", generatedPolicy);
+		}
+		return new ApiResponse(400, "Policy data is not saved", null);
 	}
 
 	@Override
@@ -140,7 +124,9 @@ public class PolicyServiceImpl implements PolicyService {
 			} else {
 				List<Claim> claims = policy.getClaims();
 				for (Claim claim : claims) {
-					if (!claim.getClaimStatus()) {
+					String s1 = claim.getClaimStatus();
+					String s2 = "Pending from Admin";
+					if (s1.compareTo(s2) == 0) {
 						return new ApiResponse(400,
 								"Your previous claims are still pending, so you cant apply for new claim", claim);
 					}
@@ -148,7 +134,7 @@ public class PolicyServiceImpl implements PolicyService {
 				Claim requestClaim = new Claim();
 				requestClaim.setPolicy(policy);
 				requestClaim.setUser(user);
-				requestClaim.setClaimStatus(false);
+				requestClaim.setClaimStatus("Pending from Admin");
 				requestClaim.setClaimReason(claimdto.getClaimReason());
 				requestClaim.setClaimAmount(claimdto.getClaimAmount());
 				Claim claimData = policyRepository.claimPolicy(requestClaim);
