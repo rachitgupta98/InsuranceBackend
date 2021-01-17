@@ -28,6 +28,7 @@ import com.insurance.dto.RenewDto;
 import com.insurance.dto.ResetPasswordDto;
 import com.insurance.service.VehicleService;
 import com.insurance.entities.Admin;
+import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
@@ -119,6 +120,11 @@ public class AppResource {
 //
 //		return userService.findUserById(userId);
 //	}
+	@GetMapping(value = "/checkStatus")
+	public ApiResponse checkClaimStatus(@RequestParam long claimId) {
+		Claim claim=policyService.findClaimById(claimId);
+		return new ApiResponse(200, "claim fetched", claim);
+	}
 	
 	@PostMapping(value = "/insurance/claimPolicy")
 	public ApiResponse requestClaimPolicy(@RequestBody ClaimDto claimdto) {
