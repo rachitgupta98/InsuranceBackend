@@ -106,7 +106,7 @@ public class AdminServiceImpl implements AdminService {
 		Admin admin=adminRepository.findAdminByAdminId(adminId);
 		Claim claims=policyRepository.findClaimById(claimId);
 		System.out.println(claims.getClaimId());
-		String claimstatus=claimapproval.getClaimstatus();
+		String claimstatus=claimapproval.getClaimStatus();
 		claims.setClaimStatus(claimstatus);
 		claims.setAdmin(admin);
 		policyRepository.claimPolicy(claims);
