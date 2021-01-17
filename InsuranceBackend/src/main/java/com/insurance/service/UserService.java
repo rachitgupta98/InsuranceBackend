@@ -14,8 +14,7 @@ public interface UserService {
 	public ApiResponse findUserById(long userId);
 	public ApiResponse deleteUser(long userId);
 	public ApiResponse login(LoginDto loginDto);
-	public ApiResponse findUserByEmail(String userEmail);
-	public ApiResponse updatePassword(ResetPasswordDto resetPasswordDto);
-   
-    
+	public ApiResponse findByEmail(String email);
+	public ApiResponse updatePassword(String email, String newPassword);
+
 }

@@ -20,4 +20,5 @@ public interface PolicyService {
 	public ApiResponse findPolicyByPolicyId(long policyNo);
 	public ApiResponse findPolicyByVehicleId(long vehicleId);
 	public ApiResponse findPolicyByUserId(long userId);
+	public ApiResponse findClaimsbyUserId(long userId);
 }

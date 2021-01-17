@@ -1,6 +1,6 @@
 package com.insurance.entities;
 
-import java.util.Date;
+
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -37,8 +37,6 @@ public class User {
 	int pinCode;
 	String userState;
 	String userCity;
-	
-	
 	
 	// One user will have Many Policies
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL)

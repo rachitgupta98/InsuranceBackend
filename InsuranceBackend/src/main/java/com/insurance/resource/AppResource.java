@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.insurance.apiResponse.ApiResponse;
+import com.insurance.dto.AdminDto;
+import com.insurance.dto.ClaimApprovalDto;
 import com.insurance.dto.ClaimDocumentDto;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
@@ -41,6 +43,9 @@ import com.insurance.service.UserService;
 @CrossOrigin(origins = "http://localhost:4200", maxAge = 3600)
 @RestController
 public class AppResource {
+	
+	@Autowired
+	EmailService emailService;
 
 	@Autowired
 	VehicleService vehicleService;
@@ -48,23 +53,19 @@ public class AppResource {
 	@Autowired
 	PolicyService policyService;
 
-    @Autowired
-    AdminService adminService;
- 
-    @Autowired
-    EmailService emailService;
+@Autowired
+AdminService adminService;
 
 	@Autowired
 	UserService userService;
 	
 	@Autowired
 	PaymentService paymentService;
-	
 	@PostMapping(value="/documentUpload/{claimId}")
 	public ApiResponse docUpload(@PathVariable long claimId,@RequestParam("file") MultipartFile file) {
 		//long claimId = claimDocumentDto.getClaimId();
 		//System.out.println(claimDocumentDto.getDocFile().getOriginalFilename());
-		String imgUploadLocation = "D:/CLaimImages/";
+		String imgUploadLocation = "G:/LTI/backendData/";
 		String uploadedFileName = file.getOriginalFilename();
 		String newFileName = claimId + "-" + uploadedFileName;
 		String targetFileName = imgUploadLocation + newFileName;
@@ -142,31 +143,6 @@ public class AppResource {
 		return adminService.addOrUpdateAdmin(admin);
 	}
 	
-	@RequestMapping(value="/forgotPassword",method=RequestMethod.POST)
-	public ApiResponse forgotPassword(@RequestBody User user){
-		    
-	       
-			String subject="Here's the link to reset your password";
-			String email = user.getUserEmail();
-			String text="Hello,"
-		            + "You have requested to reset your password."
-		            + "Click the link to change your password:"
-		            + "link=\"" +"http://localhost:4200/resetpassword"+ "\"Change my password";
-		           
-		           
-			emailService.sendEmail(email, text, subject);
-			System.out.println("Email Sent.....");
-			return userService.findUserByEmail(email);
-		
-	}
-	
-	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
-	public ApiResponse resetPassword(@RequestBody ResetPasswordDto resetPasswordDto) {
-		
-	  return  userService.updatePassword( resetPasswordDto);
-	}
-
-
 	@GetMapping(value="/insurance/findPolicyByVehicleId")
 	public ApiResponse findPolicyByVehicleId(@RequestParam long vehicleId) {
 		return policyService.findPolicyByVehicleId(vehicleId);
@@ -179,7 +155,7 @@ public class AppResource {
 	
 	@RequestMapping(value = "/insurance/findUser/{userId}")
 	public ApiResponse findUser(@PathVariable("userId") long userId) {
-		System.out.println("entering");
+		
 		return userService.findUserById(userId);
 	}
 	
@@ -188,7 +164,91 @@ public class AppResource {
 	{
 		return policyService.findPolicyByUserId(userId);
 	}
+	@RequestMapping(value="/insurance/claims/{userId}")
+	public ApiResponse findClaimsbyuserId(@PathVariable("userId") long userId)
+	{
+		return policyService.findPolicyByUserId(userId);
+	}
 	
+	@RequestMapping(value="/forgotPassword",method=RequestMethod.POST)
+	public ApiResponse forgotPassword(@RequestBody User user){
+		    
+	       
+			String subject="Here's the link to reset your password";
+			String email = user.getUserEmail();
+			String text="<p>Hello,</p>"
+		            + "<p>You have requested to reset your password.</p>"
+		            + "<p>Click the link below to change your password:</p>"
+		            + "<p><a href=\"" +"\resetPassword"+ "\">Change my password</a></p>"
+		            + "<br>"
+		            + "<p>Ignore this email if you do remember your password, "
+		            + "or you have not made the request.</p>";
+			emailService.sendEmail(email, text, subject);
+			System.out.println("Email Sent.....");
+			return userService.findByEmail(email);
+		
+	}
+	
+	@RequestMapping(value = "/resetPassword", method = RequestMethod.POST)
+	public ApiResponse resetPassword(@RequestParam String email ,String password) {
+		
+	  return  userService.updatePassword(email, password);
+	}
+	
+	@RequestMapping(value="/totalpolicies",method=RequestMethod.GET)
+	public ApiResponse countofPolicies()
+	{
+		return adminService.countOfpolicies();
+	}
+	
+	@RequestMapping(value="/totalclaims",method=RequestMethod.GET)
+	public ApiResponse countofclaims()
+	{
+		return adminService.countOfclaimes();
+	}
+	@RequestMapping(value="/viewClaims",method=RequestMethod.GET)
+	public ApiResponse viewClaims()
+	{
+		return adminService.viewAllClaims();
+	}
+	
+	@RequestMapping(value="/viewUsers",method=RequestMethod.GET)
+	public ApiResponse viewAllusers()
+	{
+		return userService.viewAllUsers();
+	}
+	@RequestMapping(value="/existingPolicies",method=RequestMethod.GET)
+	public ApiResponse existingpolicyCount()
+	{
+		return adminService.findexistingPolicies();
+	}
+	
+	@RequestMapping(value="/adminlogin",method=RequestMethod.POST)
+	public ApiResponse adminlogin(@RequestBody AdminDto admindto)
+	{
+		return adminService.findadminByEmail(admindto);
+	}
+	
+	@RequestMapping(value="/claim/{claimId}",method=RequestMethod.GET)
+	public ApiResponse findclaimbyId(@PathVariable("claimId") long claimId)
+	{	
+		Claim claim=policyService.findClaimById(claimId);
+		
+		if(claim!=null)
+		{
+			return new ApiResponse(200,"claim fetched",claim);
+		}
+		return new ApiResponse(400,"claim not found",null);
+		
+	}
+	
+	@RequestMapping(value="/updateclaim",method=RequestMethod.POST)
+	public ApiResponse updateClaimstatus(@RequestBody ClaimApprovalDto claimapproval)
+	{
+		return adminService.updateClaimStatus(claimapproval);
+	}
+	
+
 	@PostMapping(value="/insurance/policy/payment")
 	public ApiResponse PolicyPayment(@RequestBody PaymentDto payDto) {
 		

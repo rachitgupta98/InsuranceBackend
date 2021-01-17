@@ -52,7 +52,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public ApiResponse viewAllUsers() {
 		// TODO Auto-generated method stub
-		return null;
+		long users= userRepository.viewAllUsers();
+		if(users!=0)
+		{
+			return new ApiResponse(200, "SUCCESS", users) ;
+		}
+		return new ApiResponse(400, "FAILED", null) ;
 	}
 
 	@Override
@@ -70,21 +75,30 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	public ApiResponse updatePassword(String email, String newPassword) {
+	       
+		  User user=userRepository.findByEmail(email);
+	        user.setUserPassword(newPassword);
+	       userRepository.save(user);
+	       return new ApiResponse(200, "UPDATED", user) ;
+	    }
+
+
+	@Override
+	public ApiResponse findByEmail(String email) {
+		// TODO Auto-generated method stub
+		User user=userRepository.findByEmail(email);
+		if(user!=null)
+		{
+			return new ApiResponse(200, "User Fetched", user) ;
+		}
+		return new ApiResponse(404,"No user found",null);
+	}
 
 
 	
-	@Override
-	public ApiResponse findUserByEmail(String userEmail) {
-		LoginDto loginDto=new LoginDto();
-		 User user = userRepository.findByEmail(loginDto.getUserEmail());
-	     
-	          if(user.getUserEmail().equals(loginDto.getUserEmail())) {
-	    
-	        	  return new ApiResponse(200, "SUCCESS", user) ;
-	          }
-	       
-	          return new ApiResponse(400, "FAILED", null) ;
-	}
+	
 
 
 
