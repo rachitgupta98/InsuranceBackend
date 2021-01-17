@@ -15,4 +15,5 @@ public interface AdminRepository {
 	public Admin findadminByEmail(String email);
 	public List<Claim> viewAllClaims();
 	public long findexistingPolicies();
+	public Claim updateClaimStatus(Claim claim);
 }

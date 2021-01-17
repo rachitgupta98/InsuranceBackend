@@ -7,15 +7,19 @@ import org.springframework.stereotype.Service;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.AdminDto;
+import com.insurance.dto.ClaimApprovalDto;
 import com.insurance.entities.Admin;
 import com.insurance.entities.Claim;
 import com.insurance.repository.AdminRepository;
+import com.insurance.repository.PolicyRepository;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	AdminRepository adminRepository;
+	@Autowired
+	PolicyRepository policyRepository;
 	
 	@Override
 	public ApiResponse addOrUpdateAdmin(Admin admin) {
@@ -91,6 +95,25 @@ public class AdminServiceImpl implements AdminService {
 			return new ApiResponse(200, "Login successful", logadmin);
 		}
 		return new ApiResponse(200, "Login Failed", null);
+	}
+
+	@Override
+	public ApiResponse updateClaimStatus(ClaimApprovalDto claimapproval) {
+		// TODO Auto-generated method stub
+		System.out.println(claimapproval.getClaimId()+"claimID....");
+		long claimId=claimapproval.getClaimId();
+		long adminId=claimapproval.getAdminId();
+		Admin admin=adminRepository.findAdminByAdminId(adminId);
+		Claim claims=policyRepository.findClaimById(claimId);
+		System.out.println(claims.getClaimId());
+		String claimstatus=claimapproval.getClaimstatus();
+		claims.setClaimStatus(claimstatus);
+		claims.setAdmin(admin);
+		policyRepository.claimPolicy(claims);
+		
+		if(claims!=null)
+			return new ApiResponse(200,"updated succesfully",claims);
+		return new ApiResponse(400,"updationFailed",null);
 	}
 
 

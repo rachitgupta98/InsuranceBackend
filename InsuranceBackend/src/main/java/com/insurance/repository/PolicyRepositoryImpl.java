@@ -98,6 +98,7 @@ public class PolicyRepositoryImpl implements PolicyRepository {
 
 	@Transactional
 	public Claim findClaimById(long claimId) {
+		System.out.println("entering");
 		return em.find(Claim.class, claimId);
 
 	}

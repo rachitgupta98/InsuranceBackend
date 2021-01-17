@@ -7,6 +7,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.insurance.dto.AdminDto;
@@ -19,6 +20,9 @@ public class AdminRepositoryImpl implements AdminRepository {
 
 	@PersistenceContext
 	EntityManager em;
+	
+	@Autowired
+	PolicyRepository policyRepository;
 
 	@Transactional
 	public Admin addOrUpdateAdmin(Admin admin) {
@@ -36,7 +40,7 @@ public class AdminRepositoryImpl implements AdminRepository {
 	@Transactional
 	public long countOfclaimes() {
 		// TODO Auto-generated method stub
-		String jpql="select COUNT(*) from Claim e where e.claimStatus=1";
+		String jpql="select COUNT(*) from Claim e where e.claimStatus='approved'";
 		Query query = em.createQuery(jpql);
 		long claimCount=(long) query.getSingleResult();
 		return claimCount;
@@ -79,6 +83,12 @@ public class AdminRepositoryImpl implements AdminRepository {
 		query.setParameter("email", email);
 		Admin admin=(Admin) query.getSingleResult();
 		return admin;
+	}
+
+	@Override
+	public Claim updateClaimStatus(Claim claim) {
+		// TODO Auto-generated method stub
+		return policyRepository.claimPolicy(claim);
 	}
 
 }

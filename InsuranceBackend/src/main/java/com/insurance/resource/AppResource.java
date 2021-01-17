@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.insurance.apiResponse.ApiResponse;
 import com.insurance.dto.AdminDto;
+import com.insurance.dto.ClaimApprovalDto;
 import com.insurance.dto.ClaimDocumentDto;
 import com.insurance.dto.ClaimDto;
 import com.insurance.dto.LoginDto;
@@ -29,6 +30,7 @@ import com.insurance.dto.RenewDto;
 import com.insurance.dto.ResetPasswordDto;
 import com.insurance.service.VehicleService;
 import com.insurance.entities.Admin;
+import com.insurance.entities.Claim;
 import com.insurance.entities.Policy;
 import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
@@ -217,6 +219,25 @@ AdminService adminService;
 	public ApiResponse adminlogin(@RequestBody AdminDto admindto)
 	{
 		return adminService.findadminByEmail(admindto);
+	}
+	
+	@RequestMapping(value="/claim/{claimId}",method=RequestMethod.GET)
+	public ApiResponse findclaimbyId(@PathVariable("claimId") long claimId)
+	{	
+		Claim claim=policyService.findClaimById(claimId);
+		
+		if(claim!=null)
+		{
+			return new ApiResponse(200,"claim fetched",claim);
+		}
+		return new ApiResponse(400,"claim not found",null);
+		
+	}
+	
+	@RequestMapping(value="/updateclaim",method=RequestMethod.POST)
+	public ApiResponse updateClaimstatus(@RequestBody ClaimApprovalDto claimapproval)
+	{
+		return adminService.updateClaimStatus(claimapproval);
 	}
 }
 
