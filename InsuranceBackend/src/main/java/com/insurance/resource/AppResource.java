@@ -194,5 +194,9 @@ public class AppResource {
 		
 		return paymentService.pay(payDto);
 	}
+	@GetMapping(value="/insurance/policy/downloads")
+	public ApiResponse DownloadPolicy(@RequestParam long policyId) {
+		return policyService.findPolicyByPolicyId(policyId);
+	}
 }
 
