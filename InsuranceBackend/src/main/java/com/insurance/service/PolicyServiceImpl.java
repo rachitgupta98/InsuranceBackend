@@ -177,4 +177,10 @@ public class PolicyServiceImpl implements PolicyService {
 		return new ApiResponse(400, "No policy claimed", null); 
 	}
 
+	@Override
+	public ApiResponse checkClaimStatus(long claimId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

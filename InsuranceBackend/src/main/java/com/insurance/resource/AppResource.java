@@ -118,6 +118,11 @@ AdminService adminService;
 //
 //		return userService.findUserById(userId);
 //	}
+	@GetMapping(value = "/checkStatus")
+	public ApiResponse checkClaimStatus(@RequestParam long claimId) {
+		Claim claim=policyService.findClaimById(claimId);
+		return new ApiResponse(200, "claim fetched", claim);
+	}
 	
 	@PostMapping(value = "/insurance/claimPolicy")
 	public ApiResponse requestClaimPolicy(@RequestBody ClaimDto claimdto) {
