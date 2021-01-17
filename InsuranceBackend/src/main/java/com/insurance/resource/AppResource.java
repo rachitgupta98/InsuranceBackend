@@ -36,6 +36,7 @@ import com.insurance.entities.User;
 import com.insurance.entities.Vehicle;
 import com.insurance.service.AdminService;
 import com.insurance.service.EmailService;
+import com.insurance.service.PaymentService;
 import com.insurance.service.PolicyService;
 import com.insurance.service.UserService;
 
@@ -58,6 +59,8 @@ AdminService adminService;
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	PaymentService paymentService;
 	@PostMapping(value="/documentUpload/{claimId}")
 	public ApiResponse docUpload(@PathVariable long claimId,@RequestParam("file") MultipartFile file) {
 		//long claimId = claimDocumentDto.getClaimId();
@@ -243,6 +246,17 @@ AdminService adminService;
 	public ApiResponse updateClaimstatus(@RequestBody ClaimApprovalDto claimapproval)
 	{
 		return adminService.updateClaimStatus(claimapproval);
+	}
+	
+
+	@PostMapping(value="/insurance/policy/payment")
+	public ApiResponse PolicyPayment(@RequestBody PaymentDto payDto) {
+		
+		return paymentService.pay(payDto);
+	}
+	@GetMapping(value="/insurance/policy/downloads")
+	public ApiResponse DownloadPolicy(@RequestParam long policyId) {
+		return policyService.findPolicyByPolicyId(policyId);
 	}
 }
 

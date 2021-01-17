@@ -183,4 +183,13 @@ public class PolicyServiceImpl implements PolicyService {
 		return null;
 	}
 
+	@Override
+	public ApiResponse findPolicyByPolicyId(long policyNo) {
+		Policy p = policyRepository.findPolicyByPolicyId(policyNo);
+		if(p != null) {
+			return new ApiResponse(200, "Policy found", p);
+		}
+		return new ApiResponse(400, "Policy not found",null);
+	}
+
 }
