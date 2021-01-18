@@ -33,39 +33,38 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-
 	@Override
-    public ApiResponse login(LoginDto loginDto) {
-		
-        User user = userRepository.findByEmail(loginDto.getUserEmail());
-        System.out.println("in login api");
-          if(user.getUserPassword().equals(loginDto.getUserPassword())) {
-    
-        	  return new ApiResponse(200, "SUCCESS", user) ;
-          }
-       
-          return new ApiResponse(400, "FAILED", null) ;
-        
-     
-    }
+	public ApiResponse login(LoginDto loginDto) {
+
+		User user = userRepository.findByEmail(loginDto.getUserEmail());
+		if (user != null) {
+			if (user.getUserPassword().equals(loginDto.getUserPassword())) {
+
+				return new ApiResponse(200, "SUCCESS", user);
+			}
+
+		}
+
+		return new ApiResponse(400, "FAILED", null);
+
+	}
 
 	@Override
 	public ApiResponse viewAllUsers() {
 		// TODO Auto-generated method stub
-		long users= userRepository.viewAllUsers();
-		if(users!=0)
-		{
-			return new ApiResponse(200, "SUCCESS", users) ;
+		long users = userRepository.viewAllUsers();
+		if (users != 0) {
+			return new ApiResponse(200, "SUCCESS", users);
 		}
-		return new ApiResponse(400, "FAILED", null) ;
+		return new ApiResponse(400, "FAILED", null);
 	}
 
 	@Override
 	public ApiResponse findUserById(long userId) {
 		// TODO Auto-generated method stub
-		User user=userRepository.findUserById(userId);
-		if(user!=null)
-			return new ApiResponse(200,"SUCCESS",user);
+		User user = userRepository.findUserById(userId);
+		if (user != null)
+			return new ApiResponse(200, "SUCCESS", user);
 		else
 			return new ApiResponse(400, "FAILED", null);
 	}
@@ -75,43 +74,31 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
-	public ApiResponse updatePassword(String email, String newPassword) {
-	       
-		  User user=userRepository.findByEmail(email);
-	        user.setUserPassword(newPassword);
-	       userRepository.save(user);
-	       return new ApiResponse(200, "UPDATED", user) ;
-	    }
 
+	public ApiResponse updatePassword(String email, String newPassword) {
+
+		User user = userRepository.findByEmail(email);
+		user.setUserPassword(newPassword);
+		userRepository.save(user);
+		return new ApiResponse(200, "UPDATED", user);
+	}
 
 	@Override
 	public ApiResponse findByEmail(String email) {
 		// TODO Auto-generated method stub
-		User user=userRepository.findByEmail(email);
-		if(user!=null)
-		{
-			return new ApiResponse(200, "User Fetched", user) ;
+		User user = userRepository.findByEmail(email);
+		if (user != null) {
+			return new ApiResponse(200, "User Fetched", user);
 		}
-		return new ApiResponse(404,"No user found",null);
+		return new ApiResponse(404, "No user found", null);
 	}
 
+	public ApiResponse updatePassword(ResetPasswordDto resetPasswordDto) {
 
-	
-	
-
-
-
-	 public ApiResponse updatePassword(ResetPasswordDto resetPasswordDto) {
-	       
-		  User user=userRepository.findByEmail(resetPasswordDto.getUserEmail());
-	        user.setUserPassword(resetPasswordDto.getUserPassword());
-	       userRepository.save(user);
-	       return new ApiResponse(200, "UPDATED", user) ;
-	    }
-
-	
-
-	
+		User user = userRepository.findByEmail(resetPasswordDto.getUserEmail());
+		user.setUserPassword(resetPasswordDto.getUserPassword());
+		userRepository.save(user);
+		return new ApiResponse(200, "UPDATED", user);
+	}
 
 }
