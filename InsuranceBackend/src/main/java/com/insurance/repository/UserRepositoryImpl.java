@@ -52,12 +52,19 @@ public class UserRepositoryImpl implements UserRepository {
 	@Transactional
 	public User findByEmail(String email) {
 		
-		String jpql="select e from User e where e.userEmail=:email";
-		Query query = em.createQuery(jpql);
-		query.setParameter("email", email);
-		User user=(User) query.getSingleResult();
-		System.out.println("user logged in");
-		return user;
+		User user;
+		try {
+			String jpql="select e from User e where e.userEmail=:email";
+			Query query = em.createQuery(jpql);
+			query.setParameter("email", email);
+			user = (User) query.getSingleResult();
+			return user;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+		
+		
 		}
 
 	 public User save(User user) {
