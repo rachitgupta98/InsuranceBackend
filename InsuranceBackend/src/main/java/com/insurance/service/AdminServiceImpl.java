@@ -90,10 +90,14 @@ public class AdminServiceImpl implements AdminService {
 		// TODO Auto-generated method stub
 		Admin logadmin=adminRepository.findadminByEmail(admindto.getAdminEmail());
 		System.out.println(logadmin.getAdminPassword());
-		if(logadmin.getAdminPassword().equals(admindto.getAdminPassword()))
+		if(logadmin!=null)
 		{
-			return new ApiResponse(200, "Login successful", logadmin);
+			if(logadmin.getAdminPassword().equals(admindto.getAdminPassword()))
+			{
+				return new ApiResponse(200, "Login successful", logadmin);
+			}
 		}
+		
 		return new ApiResponse(200, "Login Failed", null);
 	}
 

@@ -78,11 +78,16 @@ public class AdminRepositoryImpl implements AdminRepository {
 	@Override
 	public Admin findadminByEmail(String email) {
 		// TODO Auto-generated method stub
-		String jpql="select a from Admin a where a.adminEmail=:email";
-		Query query = em.createQuery(jpql);
-		query.setParameter("email", email);
-		Admin admin=(Admin) query.getSingleResult();
-		return admin;
+		try {
+			String jpql="select a from Admin a where a.adminEmail=:email";
+			Query query = em.createQuery(jpql);
+			query.setParameter("email", email);
+			Admin admin=(Admin) query.getSingleResult();
+			return admin;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
 	}
 
 	@Override
