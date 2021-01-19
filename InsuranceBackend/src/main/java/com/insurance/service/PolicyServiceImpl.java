@@ -50,7 +50,6 @@ public class PolicyServiceImpl implements PolicyService {
 		if (policy.getPolicyId() > 0) {
 			newpolicy.setPolicyId(policy.getPolicyId());
 		}
-		// newpolicy.setPolicyId(policy.getPolicyId());
 		newpolicy.setUser(user);
 		newpolicy.setVehicle(vehicle);
 		newpolicy.setPlanType(policy.getPlanType());
@@ -93,7 +92,6 @@ public class PolicyServiceImpl implements PolicyService {
 				return new ApiResponse(400, "you are not authorized to use this policy", null);
 			}
 			LocalDate date = LocalDate.now();
-			System.out.println(policy.getPolicyEndDate());
 			if (policy.getPolicyEndDate().compareTo(date) > 0) {
 				return new ApiResponse(400, "Your policy has not expired yet", null);
 			}
@@ -106,14 +104,11 @@ public class PolicyServiceImpl implements PolicyService {
 		long claimForPolicyId = claimdto.getClaimForPolicyId();
 		Policy policy = policyRepository.findPolicyByPolicyId(claimForPolicyId);
 		long userId = claimdto.getUserId();
-		System.out.println(userId);
-		System.out.println(claimdto.getClaimForPolicyId());
 		if (policy == null) {
 			return new ApiResponse(400, "policy does not exists", null);
 		} else {
 			User user = policy.getUser();
 			long userId1 = user.getUserId();
-			System.out.println(userId1);
 			LocalDate date1 = LocalDate.now();
 			if (claimdto.getClaimAmount() > policy.getInsuranceAmount()) {
 				return new ApiResponse(400, "Claim amount is more than Vehicle IDV", null);
@@ -159,37 +154,34 @@ public class PolicyServiceImpl implements PolicyService {
 
 	@Override
 	public ApiResponse findPolicyByUserId(long userId) {
-		// TODO Auto-generated method stub
 		List<Policy> policy = policyRepository.findPolicyByUserId(userId);
 		if (policy != null) {
 			return new ApiResponse(200, "policy is existed", policy);
 		}
 		return new ApiResponse(400, "No policy existed", null);
 	}
+
 	@Override
 	public ApiResponse findClaimsbyUserId(long userId) {
-		// TODO Auto-generated method stub
-		List<ClaimDto> claims=policyRepository.findClaimsbyUserId(userId);
-		if(claims!=null)
-		{
+		List<ClaimDto> claims = policyRepository.findClaimsbyUserId(userId);
+		if (claims != null) {
 			return new ApiResponse(200, "claims fetched", claims);
 		}
-		return new ApiResponse(400, "No policy claimed", null); 
+		return new ApiResponse(400, "No policy claimed", null);
 	}
 
 	@Override
 	public ApiResponse checkClaimStatus(long claimId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ApiResponse findPolicyByPolicyId(long policyNo) {
 		Policy p = policyRepository.findPolicyByPolicyId(policyNo);
-		if(p != null) {
+		if (p != null) {
 			return new ApiResponse(200, "Policy found", p);
 		}
-		return new ApiResponse(400, "Policy not found",null);
+		return new ApiResponse(400, "Policy not found", null);
 	}
 
 }

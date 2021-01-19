@@ -20,7 +20,7 @@ public class AdminRepositoryImpl implements AdminRepository {
 
 	@PersistenceContext
 	EntityManager em;
-	
+
 	@Autowired
 	PolicyRepository policyRepository;
 
@@ -40,59 +40,54 @@ public class AdminRepositoryImpl implements AdminRepository {
 	@Transactional
 	public long countOfclaimes() {
 		// TODO Auto-generated method stub
-		String jpql="select COUNT(*) from Claim e where e.claimStatus='approved'";
+		String jpql = "select COUNT(*) from Claim e where e.claimStatus='approved'";
 		Query query = em.createQuery(jpql);
-		long claimCount=(long) query.getSingleResult();
+		long claimCount = (long) query.getSingleResult();
 		return claimCount;
 	}
 
 	@Override
 	@Transactional
 	public long countOfpolicies() {
-		String jpql="select COUNT(p) from Policy p";
-		Query query=em.createQuery(jpql);
-		long countOfpolicies= (long) query.getSingleResult();
+		String jpql = "select COUNT(p) from Policy p";
+		Query query = em.createQuery(jpql);
+		long countOfpolicies = (long) query.getSingleResult();
 		return countOfpolicies;
 	}
 
 	@Override
 	@Transactional
 	public List<Claim> viewAllClaims() {
-		// TODO Auto-generated method stub
-		String jpql="select c from Claim c";
+		String jpql = "select c from Claim c";
 		Query query = em.createQuery(jpql);
-		List<Claim> claims=query.getResultList();
-		
+		List<Claim> claims = query.getResultList();
+
 		return claims;
 	}
 
 	@Override
 	public long findexistingPolicies() {
-		// TODO Auto-generated method stub
-		String jpql="select COUNT(*) from Policy p where p.isExpired=0";
-		Query query=em.createQuery(jpql);
-		long countOfpolicies= (long) query.getSingleResult();
+		String jpql = "select COUNT(*) from Policy p where p.isExpired=0";
+		Query query = em.createQuery(jpql);
+		long countOfpolicies = (long) query.getSingleResult();
 		return countOfpolicies;
 	}
 
 	@Override
 	public Admin findadminByEmail(String email) {
-		// TODO Auto-generated method stub
 		try {
-			String jpql="select a from Admin a where a.adminEmail=:email";
+			String jpql = "select a from Admin a where a.adminEmail=:email";
 			Query query = em.createQuery(jpql);
 			query.setParameter("email", email);
-			Admin admin=(Admin) query.getSingleResult();
+			Admin admin = (Admin) query.getSingleResult();
 			return admin;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			return null;
 		}
 	}
 
 	@Override
 	public Claim updateClaimStatus(Claim claim) {
-		// TODO Auto-generated method stub
 		return policyRepository.claimPolicy(claim);
 	}
 

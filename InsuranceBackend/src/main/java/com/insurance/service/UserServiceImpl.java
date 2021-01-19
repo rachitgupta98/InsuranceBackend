@@ -19,7 +19,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApiResponse signUpUser(User user) {
-		// TODO Auto-generated method stub
 		long reg_userId = userRepository.signUpUser(user);
 
 		if (reg_userId != 0) {
@@ -51,7 +50,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApiResponse viewAllUsers() {
-		// TODO Auto-generated method stub
 		long users = userRepository.viewAllUsers();
 		if (users != 0) {
 			return new ApiResponse(200, "SUCCESS", users);
@@ -61,7 +59,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApiResponse findUserById(long userId) {
-		// TODO Auto-generated method stub
 		User user = userRepository.findUserById(userId);
 		if (user != null)
 			return new ApiResponse(200, "SUCCESS", user);
@@ -71,7 +68,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApiResponse deleteUser(long userId) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -85,7 +81,6 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public ApiResponse findByEmail(String email) {
-		// TODO Auto-generated method stub
 		User user = userRepository.findByEmail(email);
 		if (user != null) {
 			return new ApiResponse(200, "User Fetched", user);

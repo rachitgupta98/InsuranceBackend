@@ -20,6 +20,7 @@ public class UserRepositoryImpl implements UserRepository {
 
 	@PersistenceContext
 	EntityManager em;
+
 	@Transactional
 	public long signUpUser(User user) {
 		User registerd_user = em.merge(user);
@@ -48,29 +49,26 @@ public class UserRepositoryImpl implements UserRepository {
 		return user;
 	}
 
-	
 	@Transactional
 	public User findByEmail(String email) {
-		
+
 		User user;
 		try {
-			String jpql="select e from User e where e.userEmail=:email";
+			String jpql = "select e from User e where e.userEmail=:email";
 			Query query = em.createQuery(jpql);
 			query.setParameter("email", email);
 			user = (User) query.getSingleResult();
 			return user;
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			return null;
 		}
-		
-		
-		}
 
-	 public User save(User user) {
-	        Session session = em.unwrap(Session.class);
-	        session.persist(user);
-	        return user;
-	    }
+	}
+
+	public User save(User user) {
+		Session session = em.unwrap(Session.class);
+		session.persist(user);
+		return user;
+	}
 
 }

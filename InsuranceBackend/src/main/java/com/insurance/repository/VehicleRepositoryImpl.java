@@ -1,6 +1,5 @@
 package com.insurance.repository;
 
-
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -32,13 +31,9 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 		return null;
 	}
 
-	
-	
-
 	@Override
 	@Transactional
 	public Vehicle findVehicleByVehicleId(long vehicleId) {
-		// TODO Auto-generated method stub
 		return em.find(Vehicle.class, vehicleId);
 	}
 
@@ -46,19 +41,15 @@ public class VehicleRepositoryImpl implements VehicleRepository {
 	@Transactional
 	public Vehicle findVehicleByRegNo(String reg) {
 		String jpql = "select v from Vehicle v where v.registrationNo=:reg";
-		//TypedQuery<Vehicle> vehicleData = em.createQuery(jpql, Vehicle.class);
 		Query query = em.createQuery(jpql);
 		query.setParameter("reg", reg);
-		Vehicle v=null;
+		Vehicle v = null;
 		try {
 			v = (Vehicle) query.getSingleResult();
-		}
-		catch(NoResultException noResult) {
+		} catch (NoResultException noResult) {
 			return null;
-		}		
+		}
 		return v;
 	}
-
-	
 
 }

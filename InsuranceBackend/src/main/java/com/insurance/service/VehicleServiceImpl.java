@@ -1,6 +1,5 @@
 package com.insurance.service;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +15,9 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public ApiResponse addOrUpdateVehicle(Vehicle vehicle) {
-		
+
 		Vehicle vehicleData = vehicleRepository.addOrUpdateVehicle(vehicle);
-		if(vehicleData != null) {
+		if (vehicleData != null) {
 			return new ApiResponse(200, "Vehicle Data is registered successfully", vehicleData);
 
 		}
@@ -27,22 +26,16 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public ApiResponse viewAllvehicles() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public ApiResponse findVehicleByRegNo(String registration) {
-		// TODO Auto-generated method stub
 		Vehicle storedVehicle = vehicleRepository.findVehicleByRegNo(registration);
-		if(storedVehicle != null) {
+		if (storedVehicle != null) {
 			return new ApiResponse(200, "Vehicle data existed", storedVehicle);
 		}
 		return new ApiResponse(400, "No vehicle data is present", null);
 	}
-
-	
-
-	
 
 }
